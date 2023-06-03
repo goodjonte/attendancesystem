@@ -2,16 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import Login from './Pages/Login';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+var jwt = cookies.get('JWT_Token');
+var loggedIn;
+if (jwt){
+  loggedIn = true;
+}else{
+  loggedIn = false;
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Router>
+      <Routes>
+        <Route path="/" element={loggedIn ? <App /> : <Login />}/>
+      </Routes>
+  </Router>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
