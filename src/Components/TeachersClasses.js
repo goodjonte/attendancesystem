@@ -7,11 +7,16 @@ import Cookies from 'universal-cookie';
 function TeachersClasses() {
 
     const [schoolClasses, setSchoolClasses] = useState(null);
+    const [loading, setloading] = useState(true);
+
     const cookies = new Cookies();
     var headers = Operations.GetJWTPayload(cookies.get('JWT_Token'));
 
     useEffect(() => {
-      ApiOperations.GetTeachersClasses(headers['user']).then((teachers) => setSchoolClasses(teachers));
+      ApiOperations.GetTeachersClasses(headers['user']).then((teachers) => {
+        setSchoolClasses(teachers)
+        setloading(false)
+      });
     })
 
     function openClass(classId, className) {
@@ -22,6 +27,9 @@ function TeachersClasses() {
       <div className="TeachersClasses">
         <h1>Your Classes</h1>
         {
+          loading ?
+          <div class="spinner-border" role="status"></div>
+          :
           schoolClasses == null || schoolClasses === [] ? "No Classes Today" : schoolClasses.map(schoolClass => {
           return (
             <div className='Class' key={schoolClass.id}>

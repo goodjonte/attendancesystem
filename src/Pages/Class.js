@@ -5,6 +5,7 @@ import * as ApiOperations from '../Operations/ApiOperations';
 function SchoolClass() {
 
     const [Enrollments, setEnrollments] = useState(null);
+    const [loading, setloading] = useState(true);
 
     const urlParams = new URLSearchParams(window.location.search);
     const classId = urlParams.get('id');
@@ -13,6 +14,7 @@ function SchoolClass() {
     useEffect(() => {
         ApiOperations.GetClassesStudents(classId).then((response) => {
             setEnrollments(response);
+            setloading(false);
         })
     });
    
@@ -24,6 +26,10 @@ function SchoolClass() {
   return (
     <div className="App">
         {
+
+        loading ?
+        <div class="spinner-border" role="status"></div>
+        :
         className != null ? 
         <div className="ClassInfo">{className}</div>
         :
