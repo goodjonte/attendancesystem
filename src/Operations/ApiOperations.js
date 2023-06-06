@@ -1,6 +1,6 @@
 const apiURL = "https://localhost:7184/api/";
 
-export async function GetNotices() {
+async function GetNotices() {
     var response;
     try{
         response = await fetch(apiURL + 'Notices', {
@@ -19,21 +19,42 @@ export async function GetNotices() {
     }
 }
 
-// export async function UserIdToString(guid){
-//     var response;
-//     try{
-//         response = await fetch(apiURL + 'User/GetUsersName?userId=' + guid , {
-//             method: 'GET',
-//             headers: {
-//             'accept' : 'text/plain'
-//             }
-//         });
-//         if(response.status === 200) {
-//             return response.json();
-//         }else{
-//             return "User Not Found";
-//         }
-//     }catch(err){
-//         console.log(err);
-//     }
-// }
+async function GetTeachersClasses(teachersId) {
+    if(teachersId !== undefined){
+        var response;
+        try{
+            response = await fetch(apiURL + 'SchoolClasses/' + teachersId, {
+                method: 'GET',
+                headers: {
+                'accept' : 'text/plain'
+                }
+            });
+            return await response.json();
+        }catch(err){
+            console.log(err);
+        }
+    }
+    return "No Guid Passed In"
+}
+
+async function GetClassesStudents(classId) {
+    if(classId !== undefined){
+        var response;
+        try{
+            response = await fetch(apiURL + 'Enrollments/' + classId, {
+                method: 'GET',
+                headers: {
+                'accept' : 'text/plain'
+                }
+            });
+                       
+            return await response.json();
+        }catch(err){
+            console.log(err);
+        }
+    }
+    return "No Guid Passed In"
+}
+
+
+export { GetClassesStudents, GetTeachersClasses, GetNotices };

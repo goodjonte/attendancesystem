@@ -1,4 +1,5 @@
 import '../App.css';
+import TeachersClasses from '../Components/TeachersClasses';
 
 function TeacherHome() {
 
@@ -8,7 +9,8 @@ function TeacherHome() {
     <div className="App">
       <h1>Logged In As Teacher</h1>
 
-     
+      <TeachersClasses />
+
     </div>
   );
 }

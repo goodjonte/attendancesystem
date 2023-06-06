@@ -10,6 +10,8 @@ import {
 import Cookies from 'universal-cookie';
 import AdminHome from './Pages/AdminHome';
 import TeacherHome from './Pages/TeacherHome';
+import SchoolClass from './Pages/Class';
+import * as Operations from './Operations/Operations';
 
 
 const cookies = new Cookies();
@@ -18,8 +20,7 @@ var loggedIn;
 var UserRole;
 if (currentToken){
   loggedIn = true;
-  let tokenClaims = JSON.parse(atob(currentToken.split(".")[1]));//gets jwt payload section and decrypts it and turns into json object
-  console.log(tokenClaims);
+  let tokenClaims = Operations.GetJWTPayload(currentToken);//gets jwt payload section and decrypts it and turns into json object
   UserRole = tokenClaims["Role"];
 }else{
   loggedIn = false;
@@ -31,6 +32,7 @@ root.render(
   <Router>
       <Routes>
         <Route path="/" element={loggedIn ? UserRole === "0" ? <AdminHome /> : <TeacherHome /> : <Login />}/>
+        <Route path="/class" element={<SchoolClass />}/>
       </Routes>
   </Router>
 );
