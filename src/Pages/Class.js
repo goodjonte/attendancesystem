@@ -5,7 +5,6 @@ import * as ApiOperations from '../Operations/ApiOperations';
 function SchoolClass() {
 
     const [Enrollments, setEnrollments] = useState(null);
-    const [ClassInformation, setClassInformation] = useState(null);
 
     const urlParams = new URLSearchParams(window.location.search);
     const classId = urlParams.get('id');
