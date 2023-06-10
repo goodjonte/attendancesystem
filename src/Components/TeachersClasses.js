@@ -5,14 +5,8 @@ import * as ApiOperations from '../Operations/ApiOperations';
 import Cookies from 'universal-cookie';
 
 function TeachersClasses() {
-
     const [schoolClasses, setSchoolClasses] = useState(null);
     const [loading, setloading] = useState(true);
-
-    
-   
-    
-    
 
     useEffect(() => {
       const cookies = new Cookies();

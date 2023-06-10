@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 const daysLower = ["monday","tuesday","wednesday","thursday","friday"]
 
 function GetDateString() {
@@ -121,9 +122,6 @@ function createStep(sameBool, stepNumber) {
                     </table>
                 )
             }
-        case 4:
-
-            break;
         default:
             break;
     }
@@ -380,4 +378,16 @@ function CreatePeriodSetterTable(NumberOfPeriodsArray, sameDaysBool){//number of
     }
 }
 
-export { GetDateString, GetJWTPayload, createStep, CreatePeriodSetterTable };
+function ConvertTimeFormatForDB(time){
+    let timeArray = time.split(":");
+    let hour = timeArray[0];
+    let minute = timeArray[1];
+    let newTime = "2004-05-16T" + hour + ":" + minute + ":00";
+    return newTime;
+}
+
+function generateGuid() { 
+    return uuidv4();
+ }
+
+export { GetDateString, GetJWTPayload, createStep, CreatePeriodSetterTable, ConvertTimeFormatForDB, generateGuid };

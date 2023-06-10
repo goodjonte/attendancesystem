@@ -74,5 +74,55 @@ async function CreateUser(userObject){
         }
 }
 
+async function CreatePeriod(periodObject){
+    var response;
+        try{
+            response = await fetch(apiURL + 'SchoolPeriods', {
+                method: 'POST',
+                body: JSON.stringify(periodObject),
+                headers: {
+                'accept' : 'application/json',
+                'Content-Type' : 'application/json'
+                }
+            });
+            return await response.json();
+        }catch(err){
+            console.log(err);
+        }
+}
 
-export { GetClassesStudents, GetTeachersClasses, GetNotices, CreateUser };
+async function CreateDay(dayObject){
+    var response;
+        try{
+            response = await fetch(apiURL + 'SchoolDays', {
+                method: 'POST',
+                body: JSON.stringify(dayObject),
+                headers: {
+                'accept' : 'application/json',
+                'Content-Type' : 'application/json'
+                }
+            });
+            return await response.json();
+        }catch(err){
+            console.log(err);
+        }
+}
+
+async function CreateWeek(weekObject){
+    var response;
+        try{
+            response = await fetch(apiURL + 'SchoolWeeks', {
+                method: 'POST',
+                body: JSON.stringify(weekObject),
+                headers: {
+                'accept' : 'application/json',
+                'Content-Type' : 'application/json'
+                }
+            });
+            return await response.json();
+        }catch(err){
+            console.log(err);
+        }
+}
+
+export { GetClassesStudents, GetTeachersClasses, GetNotices, CreateUser, CreatePeriod, CreateDay, CreateWeek };

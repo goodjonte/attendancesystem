@@ -63,12 +63,16 @@ function AdminActions() {
     //   "parentName": "string",
     //   "parentPhone": "string"
     // }
+    function CreateClass() {
+      
+    }
 
     return (
       <div className="AdminActions">
         
           <h3 onClick={() => SelectedUserType("student")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a New Student</h3>
           <h3 onClick={() => SelectedUserType("teacher")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a New Teacher</h3>
+          <h3 onClick={() => CreateClass()} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a New Class</h3>
 
           <div className={hideButton === 'student' ? '' : 'hidden'}>
             <form method="post" onSubmit={(e) => CreateUser(e, 2)}>

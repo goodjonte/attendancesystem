@@ -1,7 +1,7 @@
 import '../App.css';
 import { useState } from 'react';
 import * as Operations from '../Operations/Operations';
-// import * as ApiOperations from '../Operations/ApiOperations';
+import * as ApiOperations from '../Operations/ApiOperations';
 
 //Note Time is given as 24hr clock string value e.g. 5pm is 17:00 and if no input is provided value will be empty string - ""
 
@@ -72,11 +72,20 @@ function SchoolWeekCreator() {
                         setStepError("please enter a value");
                         break
                     }
+                    if(document.getElementById('everydayNumOfPeriods').value < 3){
+                        setStepError("must have atleast 3 periods in a day");
+                        break
+                    }
                 }else {
                     let wasErr = false; 
                     for(let i = 0; i < daysOfSchoolWeek.length; i++) {
                         if(document.getElementById(daysOfSchoolWeek[i] + 'NumOfPeriods').value === "") {
                             setStepError("please enter all values");
+                            wasErr = true;
+                            break;
+                        }
+                        if(document.getElementById(daysOfSchoolWeek[i] + 'NumOfPeriods').value < 3 ) {
+                            setStepError("must have atleast 3 periods in a day");
                             wasErr = true;
                             break;
                         }
@@ -99,7 +108,129 @@ function SchoolWeekCreator() {
     
     function formSubmit(){
         console.log("Submit");
-        
+        var sameEveryday = document.getElementById('everyDaySameBool').checked;
+        if(sameEveryday){
+            let periodsIdArray = [];
+            // let everydayStart = document.getElementById('everydayStart').value;
+            // let everydayEnd = document.getElementById('everydayEnd').value;
+            let everydayNumOfPeriods = document.getElementById('everydayNumOfPeriods').value;
+            let breakCount = 0;
+
+            for(let i = 1; i <= everydayNumOfPeriods; i++){
+                console.log(i);
+                let periodStart = document.getElementById('everydayPeriodStart' + i.toString()).value;
+                let periodEnd = document.getElementById('everydayPeriodEnd' + i.toString()).value;
+                let isABreak = document.getElementById('everydayIsBreakBool' + i.toString()).checked;
+                if(isABreak){
+                    breakCount++;
+                }
+                let thisPeriodsId = Operations.generateGuid();
+                periodsIdArray.push(thisPeriodsId);
+
+                let tempPeriodObject = {
+                    "id": thisPeriodsId, //temp guid - backend always creates new guid
+                    "isABreak": isABreak,
+                    "periodNumber": i,
+                    "name": isABreak ? "Break" : "Period " + (i - breakCount) ,
+                    "periodStartTime": Operations.ConvertTimeFormatForDB(periodStart),
+                    "periodEndTime": Operations.ConvertTimeFormatForDB(periodEnd)
+                }
+                //post period to db
+                ApiOperations.CreatePeriod(tempPeriodObject).then((res) => {
+                    console.log(res);
+                }).catch((err) => {
+                    console.log(err);
+                });
+            }
+
+            var weeksIdArray = [];
+            for(let d = 0; d < daysOfSchoolWeek.length; d++){
+                let thisDaysId = Operations.generateGuid();
+                weeksIdArray.push(thisDaysId);
+                let tempDayObject = {
+                    "id": thisDaysId,
+                    "day": d,
+                    "daysPeriodsJsonArrayString": JSON.stringify(periodsIdArray)
+                };
+                //post day to db
+                ApiOperations.CreateDay(tempDayObject).then((res) => {
+                    console.log(res);
+                }).catch((err) => {
+                    console.log(err);
+                });
+            }
+
+            let tempWeekObject = {
+                "id": Operations.generateGuid(),
+                "sameEveryDay": sameEveryday,
+                "dailyScheduleJsonArrayString": JSON.stringify(weeksIdArray)
+            };
+            //post week to db
+            ApiOperations.CreateWeek(tempWeekObject).then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                console.log(err);
+            });
+
+
+        }else{
+            let daysIdArray = [];
+            
+            for(let d = 0; d < daysOfSchoolWeek.length; d++){
+                let breakCount = 0;
+                let thisDaysId = Operations.generateGuid();
+                daysIdArray.push(thisDaysId);
+                let thisDaysNumOfPeriods = document.getElementById(daysOfSchoolWeek[d] + 'NumOfPeriods').value;
+                let thisDaysPeriodsIdArray = [];
+                for(let i = 1; i <= thisDaysNumOfPeriods; i++){
+                    let periodStart = document.getElementById(daysOfSchoolWeek[d] + 'PeriodStart' + i.toString()).value;
+                    let periodEnd = document.getElementById(daysOfSchoolWeek[d] + 'PeriodEnd' + i.toString()).value;
+                    let isABreak = document.getElementById(daysOfSchoolWeek[d] + 'IsBreakBool' + i.toString()).checked;
+                    if(isABreak){
+                        breakCount++;
+                    }
+                    let thisPeriodsId = Operations.generateGuid();
+                    thisDaysPeriodsIdArray.push(thisPeriodsId);
+                    let tempPeriodObject = {
+                        "id": thisPeriodsId, //temp guid - backend always creates new guid
+                        "isABreak": isABreak,
+                        "periodNumber": i,
+                        "name": isABreak ? "Break" : "Period " + (i - breakCount) ,
+                        "periodStartTime": Operations.ConvertTimeFormatForDB(periodStart),
+                        "periodEndTime": Operations.ConvertTimeFormatForDB(periodEnd)
+                    }
+                    //post period to db
+                    ApiOperations.CreatePeriod(tempPeriodObject).then((res) => {
+                        console.log(res);
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                }
+                let tempDayObject = {
+                    "id": thisDaysId,
+                    "day": d,
+                    "daysPeriodsJsonArrayString": JSON.stringify(thisDaysPeriodsIdArray)
+                };
+                //post day to db
+                ApiOperations.CreateDay(tempDayObject).then((res) => {
+                    console.log(res);
+                }).catch((err) => {
+                    console.log(err);
+                });
+            }
+            let tempWeekObject = {
+                "id": Operations.generateGuid(),
+                "sameEveryDay": sameEveryday,
+                "dailyScheduleJsonArrayString": JSON.stringify(daysIdArray)
+            };
+            //post week to db
+            ApiOperations.CreateWeek(tempWeekObject).then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                console.log(err);
+            });
+
+        }
     }
     //Order of getting information that makes most sense:
     //ask if everyday is same schedule
