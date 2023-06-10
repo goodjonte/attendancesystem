@@ -1,5 +1,5 @@
 import '../App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as Operations from '../Operations/Operations';
 import * as ApiOperations from '../Operations/ApiOperations';
 
@@ -7,8 +7,9 @@ function NoticeBoard() {
 
     const [notices, setNotices] = useState([]);
 
-    ApiOperations.GetNotices().then(notes => setNotices(notes));
-    
+    useEffect(() => {
+        ApiOperations.GetNotices().then(notes => setNotices(notes));
+    }, []);
 
     return (
       <div className="NoticeBoard">

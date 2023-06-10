@@ -9,15 +9,19 @@ function TeachersClasses() {
     const [schoolClasses, setSchoolClasses] = useState(null);
     const [loading, setloading] = useState(true);
 
-    const cookies = new Cookies();
-    var headers = Operations.GetJWTPayload(cookies.get('JWT_Token'));
+    
+   
+    
+    
 
     useEffect(() => {
+      const cookies = new Cookies();
+      var headers = Operations.GetJWTPayload(cookies.get('JWT_Token'));
       ApiOperations.GetTeachersClasses(headers['user']).then((teachers) => {
         setSchoolClasses(teachers)
         setloading(false)
       });
-    })
+    },[]);
 
     function openClass(classId, className) {
       window.location.href = '/class?id=' + classId + '&name=' + className;

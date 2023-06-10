@@ -1,6 +1,12 @@
 .App {
   text-align: center;
 }
+.hidden {
+  display: none;
+}
+.spanButton {
+  border: 1px solid black;
+}
 
 /*----   Notice Board   ----*/
 .NoticeBoard {
@@ -42,3 +48,30 @@
   margin: 5%;
 }
 /*---- Teachers Classes ----*/
+
+/*---- School Week ----*/
+.tableDisplayByColumns tr {
+  display: table-cell;
+  vertical-align: top;
+}
+.tableDisplayByColumns tr td{
+  display: block;
+  border: 1px solid black;
+  height: 145px;
+  text-align: center;
+}
+.miniPeriodForum {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 145px;
+}
+.everydayPeriod {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 145px;
+}
+.errorText {
+  color: red;
+}

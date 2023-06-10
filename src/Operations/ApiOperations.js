@@ -56,5 +56,23 @@ async function GetClassesStudents(classId) {
     return "No Guid Passed In"
 }
 
+async function CreateUser(userObject){
+    var response;
+        try{
+            response = await fetch(apiURL + 'User/register', {
+                method: 'POST',
+                body: JSON.stringify(userObject),
+                headers: {
+                'accept' : 'application/json',
+                'Content-Type' : 'application/json'
+                }
+            });
+                       
+            return await response.json();
+        }catch(err){
+            console.log(err);
+        }
+}
 
-export { GetClassesStudents, GetTeachersClasses, GetNotices };
+
+export { GetClassesStudents, GetTeachersClasses, GetNotices, CreateUser };
