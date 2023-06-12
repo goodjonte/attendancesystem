@@ -2,11 +2,10 @@
 import '../App.css';
 import React from 'react';
 import Cookies from 'universal-cookie';
-import Config from '../Config.js';
+import Config from '../Config.js';  
 
 
 export default function Login(){
-
     const [registerMessage, setRegisterMessage] = React.useState("");
     const cookies = new Cookies();
     

@@ -21,6 +21,7 @@ function AdminActions() {
             "parentPhone": ""
           };
           ApiOperations.CreateUser(teacherObject);
+          window.location.reload();
           break;
         case 2://student
           var studentObject = {
@@ -33,14 +34,16 @@ function AdminActions() {
             "parentPhone": e.target.parentPhone.value
           };
           ApiOperations.CreateUser(studentObject);
+          window.location.reload();
           break;
         default:
           console.log("unknown user type");
+          window.location.reload();
           break;
       }
     }
 
-    function SelectedUserType(userType) {
+    function SelectForm(userType) {
       switch(userType) {
         case "student":
           setHideButton("student");
@@ -48,10 +51,12 @@ function AdminActions() {
         case "teacher":
           setHideButton("teacher");
           break;
+        case "class":
+          setHideButton("class");
+          break;
         default:
           break;
       }
-
     }
     // {
     //   "email": "",
@@ -70,9 +75,9 @@ function AdminActions() {
     return (
       <div className="AdminActions">
         
-          <h3 onClick={() => SelectedUserType("student")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a New Student</h3>
-          <h3 onClick={() => SelectedUserType("teacher")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a New Teacher</h3>
-          <h3 onClick={() => CreateClass()} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a New Class</h3>
+          <h3 onClick={() => SelectForm("student")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a New Student</h3>
+          <h3 onClick={() => SelectForm("teacher")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a New Teacher</h3>
+          <h3 onClick={() => SelectForm("class")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a New Class</h3>
 
           <div className={hideButton === 'student' ? '' : 'hidden'}>
             <form method="post" onSubmit={(e) => CreateUser(e, 2)}>
@@ -98,10 +103,18 @@ function AdminActions() {
             </form>
           </div> 
 
-          
+          <div className={hideButton === 'class' ? '' : 'hidden'}>
+            <form method="post" onSubmit={(e) => CreateClass(e, 1)}>
+              <input type='text' name='firstName' placeholder="first name"></input>
+              <input type='text' name='lastName' placeholder="last name"></input>
 
-        
-        
+              <input type='text' name='email' placeholder="email"></input>
+              <input type='password' name='password' placeholder="password"></input>
+              
+              <button type='submit' name='submit' >Submit</button>
+            </form>
+          </div> 
+          
       </div>
     );
   }

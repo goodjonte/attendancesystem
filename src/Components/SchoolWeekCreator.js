@@ -2,6 +2,7 @@ import '../App.css';
 import { useState } from 'react';
 import * as Operations from '../Operations/Operations';
 import * as ApiOperations from '../Operations/ApiOperations';
+import AdminCreationForm from './AdminCreationForm';
 
 //Note Time is given as 24hr clock string value e.g. 5pm is 17:00 and if no input is provided value will be empty string - ""
 
@@ -99,6 +100,9 @@ function SchoolWeekCreator() {
                 }
                 setStep4(Operations.CreatePeriodSetterTable(periodArray, everyDaySameBool));
                 setFormStep(4);
+            break;
+            case 4:
+                setFormStep(5);
             break;
         default:
             break;
@@ -231,6 +235,7 @@ function SchoolWeekCreator() {
             });
 
         }
+        NextStep(4);
     }
     //Order of getting information that makes most sense:
     //ask if everyday is same schedule
@@ -253,7 +258,7 @@ function SchoolWeekCreator() {
                     <h4>{stepError !== null ? stepError : ""}</h4>
                     <span className='spanButton' onClick={() => NextStep(2)} >Next</span>
                 </div>
-                <div className={formStep !== 3 ? 'hidden' : 'formStep2'}>
+                <div className={formStep !== 3 ? 'hidden' : 'formStep3'}>
                     <h3>Set the number of periods including breaks as periods</h3>
                     {
                       step3  
@@ -261,7 +266,7 @@ function SchoolWeekCreator() {
                     <h4>{stepError !== null ? stepError : ""}</h4>
                     <span className='spanButton' onClick={() => NextStep(3)} >Next</span>
                 </div>
-                <div className={formStep !== 4 ? 'hidden' : 'formStep2'}>
+                <div className={formStep !== 4 ? 'hidden' : 'formStep4'}>
                     <h3>Set period times and specify if period is actually a break</h3>
                     {
                       step4  
@@ -269,6 +274,7 @@ function SchoolWeekCreator() {
                     <h4>{stepError !== null ? stepError : ""}</h4>
                     <button id="finalButton"  onClick={() => formSubmit()}  >Submit</button>
                 </div>
+                
                 
 
                 <table className="hidden">
@@ -303,6 +309,11 @@ function SchoolWeekCreator() {
                     </tbody>
                 </table>
             </form>
+            <div className={formStep !== 5 ? 'hidden' : 'formStep5'}>
+                    <h1>Successfully Created the schools timetable</h1>
+                    <h2>Please Now Create A Admin account ( This login will be the highest level admin account)</h2>
+                    <AdminCreationForm />
+            </div>
         </div>
     );
 };
