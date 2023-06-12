@@ -1,11 +1,13 @@
 import '../App.css';
-import { useState } from 'react';
-// import * as Operations from '../Operations/Operations';
+import { useEffect, useState } from 'react';
+import * as Operations from '../Operations/Operations';
 import * as ApiOperations from '../Operations/ApiOperations';
 
 function AdminActions() {
-
     const [hideButton, setHideButton] = useState(null);
+    const [teachersList, setTeachersList] = useState(null);
+    const [timeTable, setTimeTable] = useState(null);
+    const [createClassErrorMessage, setCreateClassErrorMessage] = useState(null);
 
     function CreateUser(e, userType){
       e.preventDefault();
@@ -53,11 +55,13 @@ function AdminActions() {
           break;
         case "class":
           setHideButton("class");
+          GetTeachers();
           break;
         default:
           break;
       }
     }
+    //User Object
     // {
     //   "email": "",
     //   "password": "",
@@ -68,9 +72,134 @@ function AdminActions() {
     //   "parentName": "string",
     //   "parentPhone": "string"
     // }
-    function CreateClass() {
-      
+    //Class Object
+    // {
+    //   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //   "teacherId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //   "className": "string"
+    // }
+    function CreateClass(e) {
+      e.preventDefault();
+      if(e.target.classesName.value === ""){
+        setCreateClassErrorMessage("Please enter a class name");
+        return;
+      }
+      var allTableDs = document.getElementsByTagName("td");
+      var results = [];
+      for(var x=0;x<allTableDs.length;x++)
+          if(allTableDs[x].style.backgroundColor === "lightgreen")
+              results.push(allTableDs[x]);
+      console.log(results);
+
+      var classId = Operations.generateGuid();
+
+      let createClassObject = {
+        "id": classId,
+        "teacherId": e.target.teacher.value,
+        "className": e.target.classesName.value,
+      }
+      ApiOperations.CreateClass(createClassObject);
+      console.log(createClassObject);
+      for(let i = 0; i < results.length; i++){
+        let assignObject = {
+          "id": Operations.generateGuid(),
+          "classId": classId,
+          "periodId": results[i].getAttribute("value"),
+          "dayId":  results[i].parentElement.getAttribute("value")
+        }
+        ApiOperations.AsignClassToPeriod(assignObject);
+        console.log(assignObject);
+      }
+
     }
+    function GetTeachers() {
+      ApiOperations.GetTeachers().then((teachers) => {
+        setTeachersList(teachers);
+      });
+    }
+
+    function periodSelected(periodId) {
+      if(periodId.includes("Break")){
+        return;
+      }
+      if(document.getElementById(periodId).style.backgroundColor === "lightgreen"){
+        document.getElementById(periodId).style.backgroundColor = "";
+      }else{
+        document.getElementById(periodId).style.backgroundColor = "lightgreen";
+      }
+    }
+
+    async function CreateTimeTable(){
+      var data = await ApiOperations.Get("SchoolWeeks/TimetableInfo")
+        
+
+        return (
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Monday</th>
+                <th scope="col">Tuesday</th>
+                <th scope="col">Wednesday</th>
+                <th scope="col">Thursday</th>
+                <th scope="col">Friday</th>
+              </tr>
+            </thead>
+            <tbody className='formTimeTable'>
+              <tr value={data.mondayId}>
+                {
+                    data.mondayColumn.map((period, i)=> (
+                        <td value={period.periodId} id={'monday' + period.periodName} onClick={() => periodSelected('monday' + period.periodName)} key={'monday' +period.periodName + i}>
+                            {period.periodName}
+                        </td>
+                    ))
+                }
+            </tr>
+            <tr value={data.tuesdayId}>
+                {
+                    data.tuesdayColumn.map((period, i)=> (
+                        <td value={period.periodId} id={'tuesday' + period.periodName} onClick={() => periodSelected('tuesday' + period.periodName)} key={'tuesday' +period.periodName + i}>
+                            {period.periodName}
+                        </td>
+                    ))
+                }
+            </tr>
+            <tr value={data.wednesdayId}>
+                {
+                    data.wednesdayColumn.map((period, i)=> (
+                        <td value={period.periodId} id={'wednesday' + period.periodName} onClick={() => periodSelected('wednesday' + period.periodName)} key={'wednesday' + period.periodName + i}>
+                            {period.periodName}
+                        </td>
+                    ))
+                }
+            </tr>
+            <tr value={data.thursdayId}>
+                {
+                    data.thursdayColumn.map((period, i)=> (
+                        <td value={period.periodId} id={'thursday' + period.periodName} onClick={() => periodSelected('thursday' + period.periodName)} key={'thursday' + period.periodName + i}>
+                            {period.periodName}
+                        </td>
+                    ))
+                }
+            </tr>
+            <tr value={data.fridayId}>
+                {
+                    data.fridayColumn.map((period, i)=> (
+                        <td value={period.periodId} id={'friday' + period.periodName} onClick={() => periodSelected('friday' + period.periodName)} key={'friday' + period.periodName + i}>
+                            {period.periodName}
+                        </td>
+                    ))
+                }
+            </tr>
+            </tbody>
+          </table>
+        )
+        
+    }
+    useEffect(() => {
+      CreateTimeTable().then((table) => {
+        setTimeTable(table);
+      });// eslint-disable-next-line
+    }, []);
 
     return (
       <div className="AdminActions">
@@ -104,13 +233,29 @@ function AdminActions() {
           </div> 
 
           <div className={hideButton === 'class' ? '' : 'hidden'}>
-            <form method="post" onSubmit={(e) => CreateClass(e, 1)}>
-              <input type='text' name='firstName' placeholder="first name"></input>
-              <input type='text' name='lastName' placeholder="last name"></input>
+            <form method="post" onSubmit={(e) => CreateClass(e)}>
 
-              <input type='text' name='email' placeholder="email"></input>
-              <input type='password' name='password' placeholder="password"></input>
-              
+              <label htmlFor="classesName">Classes Name:</label>
+              <input type='text' id='classesName' name='classesName' placeholder="class name"></input>
+
+              <label htmlFor="teacher">Select the classes Teacher:</label>
+              <select name="teacher" id="teacher">
+                {teachersList != null ?
+                  teachersList.map(teacher => (
+                    <option key={teacher.id} value={teacher.id}>{teacher.firstName} {teacher.lastName}</option>
+                    ))
+                  :
+                  ""
+                }
+              </select>
+
+              <div>
+                <h1>Select periods which class is on</h1>
+                {
+                  timeTable !== undefined ? timeTable : ""
+                }
+              </div>
+              <h3 className={createClassErrorMessage != null ? "" : "hidden"}>{createClassErrorMessage}</h3>
               <button type='submit' name='submit' >Submit</button>
             </form>
           </div> 

@@ -178,5 +178,68 @@ async function LoginUser(userObj){
         console.log(err);
     }
 }
+async function CreateClass(ClassObject){
+    var response;
+    try{
+        response = await fetch(apiURL + 'SchoolClasses', {
+            method: 'POST',
+            body: JSON.stringify(ClassObject),
+            headers: {
+            'accept' : 'application/json',
+            'Content-Type' : 'application/json',
+            }
+        });
+            return await response.json();
+    }catch(err){
+        console.log(err);
+    }
+}
 
-export { DatabaseTest, GetClassesStudents, GetTeachersClasses, GetNotices, CreateUser, CreatePeriod, CreateDay, CreateWeek, CreateSchool, LoginUser };
+async function GetTeachers(){
+    var response;
+    try{
+        response = await fetch(apiURL + 'User/GetTeachers', {
+            method: 'Get',
+            headers: {
+                'accept' : 'text/plain'
+                }
+        });
+            return await response.json();
+    }catch(err){
+        console.log(err);
+    }
+}
+
+async function Get(restOfUrl){
+    var response;
+    try{
+        response = await fetch(apiURL + restOfUrl, {
+            method: 'Get',
+            headers: {
+                'accept' : 'text/plain'
+                }
+        });
+            return await response.json();
+    }catch(err){
+        console.log(err);
+    }
+}
+
+async function AsignClassToPeriod(classAssingmentObject){
+    var response;
+    try{
+        response = await fetch(apiURL + 'ClassesPeriods', {
+            method: 'POST',
+            body: JSON.stringify(classAssingmentObject),
+            headers: {
+            'accept' : 'application/json',
+            'Content-Type' : 'application/json',
+            }
+        });
+            return await response.json();
+    }catch(err){
+        console.log(err);
+    }
+}
+
+export { DatabaseTest, AsignClassToPeriod, GetClassesStudents, GetTeachersClasses, GetNotices, CreateUser, CreatePeriod, CreateDay, CreateWeek, CreateSchool, LoginUser, CreateClass, GetTeachers, Get };

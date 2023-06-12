@@ -154,6 +154,7 @@ function SchoolWeekCreator() {
                 let tempDayObject = {
                     "id": thisDaysId,
                     "day": d,
+                    "numberOfPeriods": everydayNumOfPeriods,
                     "daysPeriodsJsonArrayString": JSON.stringify(periodsIdArray)
                 };
                 //post day to db
@@ -213,6 +214,7 @@ function SchoolWeekCreator() {
                 let tempDayObject = {
                     "id": thisDaysId,
                     "day": d,
+                    "numberOfPeriods": thisDaysNumOfPeriods,
                     "daysPeriodsJsonArrayString": JSON.stringify(thisDaysPeriodsIdArray)
                 };
                 //post day to db

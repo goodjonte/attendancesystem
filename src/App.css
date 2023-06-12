@@ -75,3 +75,19 @@
 .errorText {
   color: red;
 }
+
+.formTimeTable {
+  border: 2px solid black;
+}
+.formTimeTable tr {
+  display: table-cell;
+  vertical-align: top;
+  width: 100px;
+
+}
+.formTimeTable tr td{
+  display: block;
+  border: 1px solid black;
+  height: 28px;
+  text-align: center;
+}
