@@ -8,11 +8,17 @@ function AdminActions() {
     const [teachersList, setTeachersList] = useState(null);
     const [timeTable, setTimeTable] = useState(null);
     const [createClassErrorMessage, setCreateClassErrorMessage] = useState(null);
+    const [adminActionsMessage, setAdminActionsMessage] = useState(null);
+    const [validationMessage, setValidationMessage] = useState(null);
 
     function CreateUser(e, userType){
       e.preventDefault();
       switch (userType) {
         case 1://teacher
+          if(e.target.password.value === "" || e.target.email.value === "" || e.target.firstName.value === "" || e.target.lastName.value === ""){
+            setValidationMessage("Please fill out all fields");
+            return;
+          }
           var teacherObject = {
             "email": e.target.email.value,
             "password": e.target.password.value,
@@ -23,9 +29,13 @@ function AdminActions() {
             "parentPhone": ""
           };
           ApiOperations.CreateUser(teacherObject);
-          window.location.reload();
+          setAdminActionsMessage("Teacher Added");
           break;
         case 2://student
+          if(e.target.parentName.value === "" || e.target.parentPhone.value === "" || e.target.firstName.value === "" || e.target.lastName.value === ""){
+            setValidationMessage("Please fill out all fields");
+            return;
+          }
           var studentObject = {
             "email": "",
             "password": "",
@@ -35,12 +45,11 @@ function AdminActions() {
             "parentName": e.target.parentName.value,
             "parentPhone": e.target.parentPhone.value
           };
-          ApiOperations.CreateUser(studentObject);
-          window.location.reload();
+          ApiOperations.CreateUser(studentObject);  
+          setAdminActionsMessage("Student Added");
           break;
         default:
           console.log("unknown user type");
-          window.location.reload();
           break;
       }
     }
@@ -110,7 +119,7 @@ function AdminActions() {
         ApiOperations.AsignClassToPeriod(assignObject);
         console.log(assignObject);
       }
-
+      setAdminActionsMessage("Class Created");
     }
     function GetTeachers() {
       ApiOperations.GetTeachers().then((teachers) => {
@@ -201,12 +210,18 @@ function AdminActions() {
       });// eslint-disable-next-line
     }, []);
 
+    useEffect(() => {
+      setHideButton(null);
+      setValidationMessage(null);
+    }, [adminActionsMessage]);
+
     return (
       <div className="AdminActions">
         
           <h3 onClick={() => SelectForm("student")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a New Student</h3>
           <h3 onClick={() => SelectForm("teacher")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a New Teacher</h3>
           <h3 onClick={() => SelectForm("class")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a New Class</h3>
+          <h4 className={adminActionsMessage === null ? 'hidden' : 'formSuccess'} >{adminActionsMessage}</h4>
 
           <div className={hideButton === 'student' ? '' : 'hidden'}>
             <form method="post" onSubmit={(e) => CreateUser(e, 2)}>
@@ -216,6 +231,7 @@ function AdminActions() {
               <input type='text' name='parentName' placeholder="parent name"></input>
               <input type='text' name='parentPhone' placeholder="parent phone"></input>
               
+              <h4 className={validationMessage !== null ? "validationMessage" : ""}>{validationMessage}</h4>
               <button type='submit' name='submit' >Submit</button>
             </form>
           </div>
@@ -228,6 +244,7 @@ function AdminActions() {
               <input type='text' name='email' placeholder="email"></input>
               <input type='password' name='password' placeholder="password"></input>
               
+              <h4 className={validationMessage !== null ? "validationMessage" : ""}>{validationMessage}</h4>
               <button type='submit' name='submit' >Submit</button>
             </form>
           </div> 

@@ -76,6 +76,12 @@
   color: red;
 }
 
+.formSuccess {
+  color: green;
+}
+.validationMessage {
+  color: red;
+}
 .formTimeTable {
   border: 2px solid black;
 }
