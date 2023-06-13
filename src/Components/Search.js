@@ -50,10 +50,6 @@ export default function Search(){
         }
     }
 
-    function open(id){
-
-    }
-
     return(
         <div>
             <form>
@@ -73,19 +69,19 @@ export default function Search(){
                         case "teacher":
                             return(
                                 <div>
-                                    <p onClick={open(result.id)} value={result.id}>{result.firstName} {result.lastName}</p>
+                                    <a href={"/user?id="+result.id} value={result.id}>{result.firstName} {result.lastName}</a>
                                 </div>
                             );
                         case "student":
                             return(
                                 <div>
-                                    <p onClick={open(result.id)} value={result.id}>{result.firstName} {result.lastName}</p>
+                                    <a href={"/user?id="+result.id} value={result.id}>{result.firstName} {result.lastName}</a>
                                 </div>
                             );
                         case "class":
                             return(
                                 <div>
-                                    <p onClick={open(result.id)} value={result.id}>{result.className}</p>
+                                    <a href={'/class?id=' + result.id + '&name=' + result.className} value={result.id}>{result.className}</a>
                                 </div>
                             );
                         default:

@@ -14,6 +14,7 @@ import TeacherHome from './Pages/TeacherHome';
 import SchoolClass from './Pages/Class';
 import * as Operations from './Operations/Operations';
 import * as ApiOperations from './Operations/ApiOperations';
+import UserProfile from './Pages/UserProfile';
 
 
 const cookies = new Cookies();
@@ -38,6 +39,7 @@ ApiOperations.DatabaseTest().then((isDataBool) => {
         <Routes>
           <Route path="/" element={isDataBool ? loggedIn ? UserRole === "0" ? <AdminHome /> : <TeacherHome /> : <Login /> : <Setup />}/>
           <Route path="/class" element={<SchoolClass />}/>
+          <Route path="/user" element={<UserProfile />}/>
         </Routes>
     </Router>
   );
