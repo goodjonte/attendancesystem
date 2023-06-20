@@ -43,7 +43,7 @@ async function GetTeachersClasses(teachersId) {
     if(teachersId !== undefined){
         var response;
         try{
-            response = await fetch(apiURL + 'SchoolClasses/' + teachersId, {
+            response = await fetch(apiURL + 'SchoolClasses/' + teachersId + '/true', {
                 method: 'GET',
                 headers: {
                 'accept' : 'text/plain'
@@ -242,4 +242,52 @@ async function AsignClassToPeriod(classAssingmentObject){
     }
 }
 
-export { DatabaseTest, AsignClassToPeriod, GetClassesStudents, GetTeachersClasses, GetNotices, CreateUser, CreatePeriod, CreateDay, CreateWeek, CreateSchool, LoginUser, CreateClass, GetTeachers, Get };
+async function Post(object, apiString ){
+    var response;
+    try{
+        response = await fetch(apiURL + apiString, {
+            method: 'POST',
+            body: JSON.stringify(object),
+            headers: {
+            'accept' : 'application/json',
+            'Content-Type' : 'application/json',
+            }
+        });
+            return await response.json();
+    }catch(err){
+        console.log(err);
+    }
+}
+
+async function GetUsersName(userId){
+    var response;
+    try{
+        response = await fetch(apiURL + "User/" + userId, {
+            method: 'Get',
+            headers: {
+                'accept' : 'text/plain'
+                }
+        });
+            return response;
+    }catch(err){
+        console.log(err);
+    }
+}
+
+async function GetAbsences(){
+    var response;
+    try{
+        response = await fetch(apiURL + "Attendances/GetUnjustifiedAbsences", {
+            method: 'Get',
+            headers: {
+                'accept' : 'text/plain'
+                }
+        });
+            return await response.json();
+    }catch(err){
+        console.log(err);
+    }
+}
+
+
+export { GetAbsences, GetUsersName, DatabaseTest, AsignClassToPeriod, GetClassesStudents, Post, GetTeachersClasses, GetNotices, CreateUser, CreatePeriod, CreateDay, CreateWeek, CreateSchool, LoginUser, CreateClass, GetTeachers, Get };
