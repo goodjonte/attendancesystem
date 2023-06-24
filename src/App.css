@@ -8,6 +8,33 @@
   border: 1px solid black;
 }
 
+/*----   NavBar   ----*/
+
+/*----   NavBar   ----*/
+
+/*----   SearchBox   ----*/
+.SearchBox {
+  width: 80%;
+  margin: 50px auto;
+  text-align: center;
+}
+#SearchTitle {
+  font-size: larger;
+  font-weight: bold;
+}
+.radio{
+  display: inline-block;
+  margin: 0 10px;
+}
+.radioLabel{
+  margin: 0 10px;
+  text-align: left;
+}
+/*----   SearchBox   ----*/
+
+/*----   Login   ----*/
+/*----   Login   ----*/
+
 /*----   Notice Board   ----*/
 .NoticeBoard {
   width: 50%;

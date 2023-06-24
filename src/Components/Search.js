@@ -1,4 +1,5 @@
 import React /*, { useEffect }*/ from 'react';
+import '../App.css';
 import * as ApiOperations from '../Operations/ApiOperations';
 
 
@@ -51,17 +52,17 @@ export default function Search(){
     }
 
     return(
-        <div>
+        <div className='SearchBox'>
             <form>
-                <label>Search For:</label><br/>
-                <label htmlFor="teacherRadio">Teacher </label>
-                <input type="radio" id="teacherRadio" name="radios" value="teacher" /><br/>
-                <label htmlFor="studentRadio">Student </label>
-                <input type="radio" id="studentRadio" name="radios" value="student"/><br/>
-                <label htmlFor="classRadio">Class </label>
-                <input type="radio" id="classRadio" name="radios" value="class"/><br/>
+                <label id="SearchTitle">Search For:</label><br/>
+                <label className="radioLabel" htmlFor="teacherRadio">Teacher </label>
+                <input className="radio" type="radio" id="teacherRadio" name="radios" value="teacher" /><br/>
+                <label className="radioLabel" htmlFor="studentRadio">Student </label>
+                <input className="radio" type="radio" id="studentRadio" name="radios" value="student"/><br/>
+                <label className="radioLabel" htmlFor="classRadio">Class </label>
+                <input className="radio" type="radio" id="classRadio" name="radios" value="class"/><br/>
                 <p className={searchMessage !== "" ? "validationMessage" : "hidden"}>{searchMessage}</p>
-                <input type="text" name="searchString" id="searchString" onChange={(event) => { event.preventDefault(); search(event.target.value); }} />
+                <input type="text" placeholder="search..." name="searchString" id="searchString" onChange={(event) => { event.preventDefault(); search(event.target.value); }} />
             </form>
             <div>
                 {results.map((result, i) => {
