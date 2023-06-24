@@ -64,30 +64,29 @@ export default function Search(){
                 <input type="text" name="searchString" id="searchString" onChange={(event) => { event.preventDefault(); search(event.target.value); }} />
             </form>
             <div>
-                {results.map((result) => {
+                {results.map((result, i) => {
                     switch(radioSelected){
                         case "teacher":
                             return(
-                                <div>
+                                <div key={"result" + i} >
                                     <a href={"/user?id="+result.id} value={result.id}>{result.firstName} {result.lastName}</a>
                                 </div>
                             );
                         case "student":
                             return(
-                                <div>
+                                <div key={"result" + i} >
                                     <a href={"/user?id="+result.id} value={result.id}>{result.firstName} {result.lastName}</a>
                                 </div>
                             );
                         case "class":
                             return(
-                                <div>
+                                <div key={"result" + i} >
                                     <a href={'/class?id=' + result.id + '&name=' + result.className} value={result.id}>{result.className}</a>
                                 </div>
                             );
                         default:
                             return null;
                     }
-                    
                 })}
             </div>
         </div>

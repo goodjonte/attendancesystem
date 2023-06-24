@@ -289,5 +289,25 @@ async function GetAbsences(){
     }
 }
 
+async function ResolveAbsence(absenceObject){
+    var response;
+    try{
+        response = await fetch(apiURL + "Attendances/ResolveAbsence", {
+            method: 'POST',
+            body: JSON.stringify(absenceObject),
+            headers: {
+            'accept' : 'application/json',
+            'Content-Type' : 'application/json',
+            }
+        });
+        if(response.ok){
+            return "Success";
+        }
+            return await response;
+    }catch(err){
+        console.log(err);
+    }
+}
 
-export { GetAbsences, GetUsersName, DatabaseTest, AsignClassToPeriod, GetClassesStudents, Post, GetTeachersClasses, GetNotices, CreateUser, CreatePeriod, CreateDay, CreateWeek, CreateSchool, LoginUser, CreateClass, GetTeachers, Get };
+
+export { ResolveAbsence, GetAbsences, GetUsersName, DatabaseTest, AsignClassToPeriod, GetClassesStudents, Post, GetTeachersClasses, GetNotices, CreateUser, CreatePeriod, CreateDay, CreateWeek, CreateSchool, LoginUser, CreateClass, GetTeachers, Get };

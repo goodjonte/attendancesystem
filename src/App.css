@@ -100,3 +100,10 @@
 .spanLink {
   text-decoration: underline;
 }
+
+/* Absences */
+.Absence {
+  border: 2px black solid;
+  width: 50%;
+  margin: auto;
+}

@@ -60,7 +60,7 @@ export default function Login(){
 
                         <div className="input-group inputLoginPage">
                             <span className='input-group-text'>Password: </span>
-                            <input className='form-control' type="password" name="passwordLogin" id="passwordLogin" />
+                            <input className='form-control' type="password" name="passwordLogin" autoComplete='current-password' id="passwordLogin" />
                         </div>
                         {registerMessage}
                         <button type='submit' className='btn btn-outline-dark'>Submit</button>
