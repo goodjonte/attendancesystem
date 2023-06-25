@@ -51,19 +51,23 @@ export default function Absences(){
       <div className="Absence">
         <div className="AbsencesHeader">
             <h1>Absences</h1>
+            <div><a href={PDF} target="_blank" rel="noreferrer">View Attendace Code</a></div>
         </div>
-        <div className='Absences'>
-            <a href={PDF} target="_blank" rel="noreferrer">View Attendace Code</a>
+        <div className='AbsencesBox'>
+        <div className='Absences overflow-auto'>
+            
             <label id="absenceValidation">{absenceValidationMessage}</label>
             {
-                absences.length === 0 ? <h2>No Absences</h2> :
+                absences.length === 0 ? <h2>All absences have been resolved</h2> :
 
                 absences.map(abs => {
                     return (
-                        <div className='Note' key={abs.attendanceId}>
-                            <h2>Student: <a href={"/user?id="+abs.studentId}>{abs.studentName}</a></h2>
-                            <p>Class: {abs.className}</p>
-                            <p>
+                        <div className='Absent' key={abs.attendanceId}>
+                            <div className='AbsentLeftText'>
+                                <h5>Student: <a href={"/user?id="+abs.studentId}>{abs.studentName}</a></h5>
+                                <h5>Class: {abs.className}</h5>
+                            </div>
+                            <p className='WasMarked'>
                                 Student was marked - {EnumToString(abs.status)}
                             </p>
                             <form onSubmit={(e) => changeAttendanceStatus(e, abs)}>
@@ -81,6 +85,7 @@ export default function Absences(){
                     )
                 })
             }
+        </div>
         </div>
       </div>
     );

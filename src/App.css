@@ -7,6 +7,47 @@
 .spanButton {
   border: 1px solid black;
 }
+.TextLink {
+  text-decoration: underline;
+  color: black;
+}
+.TextLink:hover {
+  color: gray;
+  cursor: pointer;
+}
+.flexColum {
+  display: flex;
+  flex-direction: column;
+}
+
+/*---- Scrollbar ----*/
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.507);
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 5px;
+}
+/*---- Scrollbar ----*/
+
+/*---- AdminHome ----*/
+#AdminHomeSecondRow {
+  width: 85%;
+  margin: 15px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+/*---- AdminHome ----*/
 
 /*----   NavBar   ----*/
 
@@ -37,16 +78,25 @@
 
 /*----   Notice Board   ----*/
 .NoticeBoard {
-  width: 50%;
-  margin: auto;
+  width: 45%;
   border: 2px solid black;
+  height: 600px;
+  border-radius: 10px;
 }
 .NoticesHeader {
   width: 100%;
+  height: 60px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   border-bottom: 1px black solid;
+}
+.NoticesHeader div {
+  margin-top: auto;
+  margin-right: 3px;
+}
+.NoticesHeader h1 {
+  margin: 10px 0 1px 10px;
 }
 .Note {
   background-color: lightgray;
@@ -54,7 +104,40 @@
   border-radius: 5px;
   text-align: left;
 }
+.ValidationMessage {
+  color: red;
+  font-weight: bold;
+}
+.Notices {
+  height: 530px;
+}
+.CreateNotice h3 {
+  margin: 5px;
+}
+.CreateNotice form div {
+  width: 80%;
+  margin: 15px auto;
+}
+.CreateNotice form div textarea {
+  height: 200px;
+}
+.backButton {
+  width: 25% !important; 
+  margin:  15px auto !important;
+}
+.CreateNotice form div span {
+  width: 72px;
+}
 /*----   Notice Board   ----*/
+
+/*---- AdminActions ----*/
+.AdminActions {
+  width: 45%;
+  border: 2px solid black;
+  height: 500px;
+  border-radius: 10px;
+}
+/*---- AdminActions ----*/
 
 /*---- Teachers Classes ----*/
 .TeachersClasses {
@@ -128,9 +211,61 @@
   text-decoration: underline;
 }
 
-/* Absences */
+/*---- Absences ----*/
 .Absence {
   border: 2px black solid;
-  width: 50%;
-  margin: auto;
+  border-radius: 10px;
+  width: 85%;
+  margin: 25px auto;
+  height: 500px;
 }
+.AbsencesBox {
+  height: 430px;
+}
+.Absences {
+  height: 400px;
+}
+.AbsencesHeader {
+  width: 90%;
+  height: 60px;
+  margin: 5px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px black solid;
+}
+.AbsencesHeader h1{
+  margin: 10px 0 1px 0;
+}
+.AbsencesHeader div{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 1px;
+}
+.AbsencesHeader div a{
+  text-decoration: underline;
+  color: black;
+}
+.Absent {
+  width: 90%;
+  margin: 5px auto;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: lightgray;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.AbsentLeftText {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 5px;
+  text-align: left;
+}
+.WasMarked {
+  align-self: center;
+  margin: 0 !important;
+}
+/* Absences */
