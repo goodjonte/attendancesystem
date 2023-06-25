@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  overflow-x: hidden;
 }
 .hidden {
   display: none;
@@ -46,6 +47,16 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+@media screen and (max-width: 890px) {
+  #AdminHomeSecondRow {
+    flex-direction: column;
+    align-items: center;
+  }
+  #AdminHomeSecondRow div {
+    width: 85% !important;
+    margin: 15px auto !important;
+  }
 }
 /*---- AdminHome ----*/
 
@@ -104,12 +115,43 @@
   border-radius: 5px;
   text-align: left;
 }
+.Note div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.Note p {
+  margin: 5px;
+}
+.Note div h2 {
+  margin-left: 5px;
+}
+.Note div p {
+  margin-right: 5px;
+}
 .ValidationMessage {
   color: red;
   font-weight: bold;
 }
 .Notices {
   height: 530px;
+  overflow-x: hidden !important;
+}
+@media screen and (max-width: 890px) {
+  .Notices {
+    height: 430px;
+    overflow-x: hidden !important;
+  }
+  .Note div {
+    flex-direction: column;
+  }
+  .NoticesHeader {
+    flex-direction: column;
+    height: 120px;
+  }
+  .NoticesHeader h1 {
+    margin: 5px 0 1px 5px;
+  }
 }
 .CreateNotice h3 {
   margin: 5px;
@@ -224,6 +266,7 @@
 }
 .Absences {
   height: 400px;
+  overflow-x: hidden !important;
 }
 .AbsencesHeader {
   width: 90%;

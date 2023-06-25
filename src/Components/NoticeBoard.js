@@ -85,8 +85,10 @@ function NoticeBoard() {
                 notices.map(note => {
                     return (
                         <div className='Note' key={note.id}>
-                            <h2>{note.title}</h2>
-                            <p>{note.noticeCreatorName}</p>
+                            <div>
+                                <h2>{note.title}</h2>
+                                <p>Posted By: {note.noticeCreatorName}</p>
+                            </div>
                             <p>
                                 {note.noticeText}
                             </p>
