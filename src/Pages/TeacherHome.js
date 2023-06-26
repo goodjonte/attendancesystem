@@ -1,12 +1,17 @@
 import '../App.css';
 import TeachersClasses from '../Components/TeachersClasses';
+import NavBar from '../Components/NavBar';
+import NoticeBoard from '../Components/NoticeBoard';
 
 function TeacherHome() {
   return (
     <div className="App">
-      <h1>Logged In As Teacher</h1>
-
-      <TeachersClasses />
+      <NavBar userLoggedIn={true} />
+      <div id='TeacherHomeSecondRow'>
+        <NoticeBoard displayAsPage={false} />
+        <TeachersClasses />
+      </div>
+      
 
     </div>
   );

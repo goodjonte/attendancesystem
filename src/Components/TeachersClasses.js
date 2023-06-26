@@ -26,17 +26,21 @@ function TeachersClasses() {
 
     return (
       <div className="TeachersClasses">
-        <h1>Your Classes</h1>
+        <h1>Classes</h1>
         {
           loading ?
           <div class="spinner-border" role="status"></div>
           :
+          <div className='classList'>
+            {
           schoolClasses == null || schoolClasses === [] ? "No Classes Today" : schoolClasses.map(schoolClass => {
           return (
             <div className='Class' key={schoolClass.id}>
                 <h2 onClick={() => openClass(schoolClass.id, schoolClass.className)}>{schoolClass.className}</h2>
             </div>
           )})
+          }
+          </div>
         }
       </div>
     );

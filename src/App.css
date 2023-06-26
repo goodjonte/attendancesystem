@@ -143,6 +143,18 @@ a:hover {
 
 
 
+/*----  \/  TeacherHome  \/  ----*/
+#TeacherHomeSecondRow {
+  width: 85%;
+  margin: 15px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+/*----  /\  TeacherHome  /\  ----*/
+
+
+
 /*----  \/  NavBar  \/  ----*/
 .navbarCont {
   background-color: var(--colorBlack) !important;
@@ -403,21 +415,38 @@ a:hover {
 
 /*----  \/  Teachers Classes  \/  ----*/
 .TeachersClasses {
-  width: 50%;
-  margin: auto;
+  width: 45%;
   border: 2px solid var(--colorWhite);
+  border-radius: 5px;
+  background-color: var(--colorBlack);
+}
+.TeachersClasses h1 {
+  width: 45%;
+  margin: 5px auto;
+  border-bottom: 1px solid var(--colorWhite);
+}
+.classList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 .Class {
-  width: 20%;
-  margin: 5%;
+  width: 150px;
+  margin: 5px;
   border-radius: 10px;
-  background-color: lightgray;
+  border: 1px solid var(--colorTeal);
+  background-color: var(--colorGrey);
 }
 .Class:hover {
-  border: 1px solid var(--colorWhite);
-  background-color: gray;
-  width: 20%;
-  margin: 5%;
+  background-color: var(--colorBlack);
+  border: 1px solid var(--colorTealHover);
+}
+.flexMid {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /*----  /\  Teachers Classes  /\  ----*/
 

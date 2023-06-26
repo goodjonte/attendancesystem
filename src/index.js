@@ -18,7 +18,7 @@ import UserProfile from './Pages/UserProfile';
 import NoticesPage from './Pages/NoticesPage';
 import AbsencesPage from './Pages/AbsencesPage';
 import AdminActionsPage from './Pages/AdminActionsPage';
-
+import TeachersClasssesPage from './Pages/TeachersClasssesPage';
 
 const cookies = new Cookies();
 var currentToken = cookies.get('JWT_Token');
@@ -46,6 +46,7 @@ ApiOperations.DatabaseTest().then((isDataBool) => {
           <Route path="/notices" element={<NoticesPage />}/>
           <Route path="/absences" element={<AbsencesPage />}/>
           <Route path="/adminaction" element={<AdminActionsPage />}/>
+          <Route path="/myclasses" element={<TeachersClasssesPage />}/>
         </Routes>
     </Router>
   );
