@@ -81,7 +81,7 @@ export default function NavBar(props) {
                         
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/notices">Notices</Nav.Link>
-                        <Nav.Link href="/">Absences</Nav.Link>
+                        <Nav.Link href="/absences">Absences</Nav.Link>
                         
                         <NavDropdown
                             title="Admin Actions"

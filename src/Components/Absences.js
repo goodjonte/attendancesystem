@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import * as ApiOperations from '../Operations/ApiOperations';
 import PDF from '../Assets/Attendance-code.pdf';
 
-export default function Absences(){
+export default function Absences(props){
     const [absences, setAbsences] = useState([]);
     const [absenceValidationMessage, setAbsenceValidationMessage] = useState("");
     const [loading, setLoading] = useState(true);
+
+    const displayAsPage = props.displayAsPage; //If true, display as page, if false, display as component
 
     useEffect(() => {
         ApiOperations.GetAbsences().then(abs => {
@@ -50,7 +52,7 @@ export default function Absences(){
     }
     
     return (
-      <div className="Absence">
+      <div className={displayAsPage ? "AbsenceMain" :"Absence"}>
         <div className="AbsencesHeader">
             <h1>Absences</h1>
             <div><a href={PDF} target="_blank" rel="noreferrer">View Attendace Code</a></div>
@@ -60,7 +62,7 @@ export default function Absences(){
             <div class="spinner-border mt-10" role="status">
             </div>
             : 
-            <div className='Absences overflow-auto'>
+            <div className={displayAsPage ? 'AbsencesMain overflow-auto' : 'Absences overflow-auto'}>
 
                 
                 

@@ -11,7 +11,7 @@ function AdminHome() {
   return (
     <div className="App">
       <NavBar userLoggedIn={true}/>
-      <Absences />
+      <Absences displayAsPage={false}/>
       <div id="AdminHomeSecondRow">
         <NoticeBoard displayAsPage={false}/>
         <AdminActions />

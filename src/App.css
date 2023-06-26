@@ -462,11 +462,23 @@ a:hover {
   height: 500px;
   background-color: var(--colorBlack);
 }
+.AbsenceMain {
+  border: 2px var(--colorWhite) solid;
+  border-radius: 10px;
+  width: 85%;
+  margin: 25px auto;
+  height: 800px;
+  background-color: var(--colorBlack);
+}
 .AbsencesBox {
   height: 430px;
 }
 .Absences {
   height: 400px;
+  overflow-x: hidden !important;
+}
+.AbsencesMain {
+  height: 700px;
   overflow-x: hidden !important;
 }
 .AbsencesHeader {
@@ -540,6 +552,24 @@ a:hover {
 }
 #absenceValidation {
   color: var(--colorRed);
+}
+@media screen and (max-width: 890px) {
+  .Absent {
+    flex-direction: column;
+    align-items: center;
+  }
+ 
+}
+@media screen and (max-width: 320px) {
+  .AbsencesHeader {
+    flex-direction: column;
+    align-items: center;
+    height: 100px;
+  }
+  .Absences {
+    height: 375px;
+  }
+ 
 }
 /* Absences */
 
