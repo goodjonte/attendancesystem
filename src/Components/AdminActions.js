@@ -14,6 +14,7 @@ function AdminActions(props) {
     const [mainPageBool, setMainPageBool] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    //Use effect that checks if there is a predetermined form to show, used when user clicks on a action from navbar
     useEffect(() => {
       const requestedAction = props.action;
       switch(requestedAction) {
@@ -39,6 +40,14 @@ function AdminActions(props) {
       setLoading(false);
     }, [props.action]);
 
+    //Call for custom timetable to be created and set 
+    useEffect(() => { 
+      CreateTimeTable().then((table) => {
+        setTimeTable(table);
+      });// eslint-disable-next-line
+    }, []);
+
+    //Function is called when the user submits the "Create a Student" or "Create a Teacher" form
     function CreateUser(e, userType){
       e.preventDefault();
       switch (userType) {
@@ -86,6 +95,7 @@ function AdminActions(props) {
       }
     }
 
+    //Function that calss the correct form to be shown
     function SelectForm(userType) {
       setAdminActionsMessage(null); 
       switch(userType) {
@@ -103,23 +113,8 @@ function AdminActions(props) {
           break;
       }
     }
-    //User Object
-    // {
-    //   "email": "",
-    //   "password": "",
-    //   "schoolId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    //   "firstName": "string",
-    //   "lastName": "string",
-    //   "usersRole": 0,
-    //   "parentName": "string",
-    //   "parentPhone": "string"
-    // }
-    //Class Object
-    // {
-    //   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    //   "teacherId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    //   "className": "string"
-    // }
+
+    //Function that creates a class from the data given - called when "Create a class" is submitted
     function CreateClass(e) {
       e.preventDefault();
       if(e.target.classesName.value === ""){
@@ -156,12 +151,15 @@ function AdminActions(props) {
       setHideButton(null);
       setValidationMessage(null);
     }
+
+    //Function that sets a list of teachers - called when "Create a class" is selected
     function GetTeachers() {
       ApiOperations.GetTeachers().then((teachers) => {
         setTeachersList(teachers);
       });
     }
 
+    //Called when a period is selected, if the period is already selected it will be unselected
     function periodSelected(periodId) {
       if(periodId.includes("Break")){
         return;
@@ -173,10 +171,11 @@ function AdminActions(props) {
       }
     }
 
+    //Function that returns a table with the schools structure, shows mon-friday and the periods for each day
+    //Each period can be selected and will be highlighted green
+    //Selected periods are the periods which the class beiong created in on
     async function CreateTimeTable(){
       var data = await ApiOperations.Get("SchoolWeeks/TimetableInfo")
-        
-
         return (
           <table id="createClassTimeTable">
             <thead>
@@ -239,18 +238,14 @@ function AdminActions(props) {
         )
         
     }
-    useEffect(() => {
-      CreateTimeTable().then((table) => {
-        setTimeTable(table);
-      });// eslint-disable-next-line
-    }, []);
 
-    
+    //Show loading screen if loading bool is true
     if(loading){
       return (
         <Loading />
       )
     }
+    //Otherwise show the admin actions
     return (
       <div className={mainPageBool ? "AdminActionsMain" : "AdminActions"}>
           <h3 className={hideButton === null ? 'actionTitle' : 'hidden'}> Admin Actions: </h3>

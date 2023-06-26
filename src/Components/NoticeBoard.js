@@ -14,17 +14,13 @@ function NoticeBoard(props) {
 
     const displayAsPage = props.displayAsPage; //If true, display as page, if false, display as component
 
+    //UseEffect to get notices from database upon first render
     useEffect(() => {
         ApiOperations.GetNotices().then(notes => setNotices(notes));
         setLoading(false);
     }, []);
-    // {
-    //     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    //     "noticeCreatorName": "string",
-    //     "title": "string",
-    //     "noticeText": "string",
-    //     "noticeShowDate": "2023-06-25T03:59:24.623Z"
-    //   }
+
+    //Function to handle form submission of new notice    
     function NewNotice(e){
         e.preventDefault();
         if(e.target.btnradio.value === "" || e.target.title.value === "" || e.target.noticeText.value === "") {

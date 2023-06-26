@@ -1,3 +1,4 @@
+/*---- \/ Universal \/ ----*/
 .App {
   text-align: center;
   overflow-x: hidden;
@@ -54,6 +55,7 @@ a {
 a:hover {
   color: var(--colorTealHover);
 }
+/*---- /\ Universal /\ ----*/
 
 
 
@@ -102,26 +104,24 @@ a:hover {
 /*---- /\ Bootstrap overwrites /\ ----*/
 
 
-/*---- Scrollbar ----*/
-/* width */
+
+/*----  \/  Scrollbar  \/  ----*/
 ::-webkit-scrollbar {
   width: 10px;
 }
-
-/* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.507);
   border-radius: 5px;
 }
-
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: grey;
   border-radius: 5px;
 }
-/*---- Scrollbar ----*/
+/*----  /\  Scrollbar  /\  ----*/
 
-/*---- AdminHome ----*/
+
+
+/*----  \/  AdminHome  \/  ----*/
 #AdminHomeSecondRow {
   width: 85%;
   margin: 15px auto;
@@ -139,9 +139,11 @@ a:hover {
     margin: 15px auto !important;
   }
 }
-/*---- AdminHome ----*/
+/*----  /\  AdminHome  /\  ----*/
 
-/*----   NavBar   ----*/
+
+
+/*----  \/  NavBar  \/  ----*/
 .navbarCont {
   background-color: var(--colorBlack) !important;
 }
@@ -160,9 +162,11 @@ a:hover {
   text-decoration: underline;
   cursor: pointer;
 }
-/*----   NavBar   ----*/
+/*----  /\  NavBar  /\  ----*/
 
-/*----   SearchBox   ----*/
+
+
+/*----  \/  SearchBox  \/  ----*/
 .SearchBox {
   width: 80%;
   margin: 50px auto;
@@ -180,9 +184,11 @@ a:hover {
   margin: 0 10px;
   text-align: left;
 } 
-/*----   SearchBox   ----*/
+/*----  /\  SearchBox  /\   ----*/
 
-/*----   Login   ----*/
+
+
+/*----  \/  Login  \/  ----*/
 .loginPage {
   width: 40%;
   margin: 50px auto;
@@ -200,9 +206,11 @@ a:hover {
 .loginTitle {
   color: var(--colorWhite);
 }
-/*----   Login   ----*/
+/*----  /\  Login  /\  ----*/
 
-/*----   Notice Board   ----*/
+
+
+/*----  \/  Notice Board  \/  ----*/
 .NoticeBoardMain {
   width: 80%;
   margin: 50px auto;
@@ -319,9 +327,11 @@ a:hover {
 .CreateNoticeMain form div span {
   width: 72px;
 }
-/*----   Notice Board   ----*/
+/*---- /\  Notice Board  /\  ----*/
 
-/*---- AdminActions ----*/
+
+
+/*----  \/  AdminActions  \/  ----*/
 .AdminActions {
   width: 45%;
   border: 2px solid var(--colorWhite);
@@ -389,7 +399,9 @@ a:hover {
 }
 /*---- AdminActions ----*/
 
-/*---- Teachers Classes ----*/
+
+
+/*----  \/  Teachers Classes  \/  ----*/
 .TeachersClasses {
   width: 50%;
   margin: auto;
@@ -407,9 +419,11 @@ a:hover {
   width: 20%;
   margin: 5%;
 }
-/*---- Teachers Classes ----*/
+/*----  /\  Teachers Classes  /\  ----*/
 
-/*---- School Week ----*/
+
+
+/*----  \/  School Week  \/  ----*/
 .tableDisplayByColumns tr {
   display: table-cell;
   vertical-align: top;
@@ -460,8 +474,11 @@ a:hover {
 .spanLink {
   text-decoration: underline;
 }
+/*----  /\  School Week  /\  ----*/
 
-/*---- Absences ----*/
+
+
+/*----  \/  Absences  \/  ----*/
 .Absence {
   border: 2px var(--colorWhite) solid;
   border-radius: 10px;
@@ -579,5 +596,5 @@ a:hover {
   }
  
 }
-/* Absences */
+/*----  /\  Absences  /\  ----*/
 

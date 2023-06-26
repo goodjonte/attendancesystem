@@ -2,22 +2,21 @@ import React /*, { useEffect }*/ from 'react';
 import '../App.css';
 import * as ApiOperations from '../Operations/ApiOperations';
 
-
-
 //Using no search button for development purposes
 //will need to implement button so there isnt a ridicoulous amount of calls to the api
 
-
 export default function Search(){
-
-    // const [searchString, setSearchString] = React.useState("");
     const [results, setResults] = React.useState([]);
     const [radioSelected, setRadioSelected] = React.useState("teacher");
     const [searchMessage, setSearchMessage] = React.useState("");
 
+    //Called when there is new string in search bar
     function search(searchString){
-        if(searchString === "") return;
+        if(searchString === "") return; //if theres nothing in the search bar break
 
+        //Try to get the selected radio button
+        //Will break if none are selected
+        //Then will display a error message telling user to select a type and will return out of search function
         try{
             var selected = document.querySelector('input[name="radios"]:checked').value;
             setSearchMessage("");
@@ -26,7 +25,10 @@ export default function Search(){
             setSearchMessage("Please select a search type");
             return;
         }
+
         setRadioSelected(selected);
+        //Switch statement to determine which table to get data from
+        //Will filter data based on search string
         switch(selected){
             case "teacher":
                 ApiOperations.Get('User/GetTeachers').then((data) => {   

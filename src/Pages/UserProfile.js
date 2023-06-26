@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import * as ApiOperations from '../Operations/ApiOperations';
 
 export default function UserProfile() {
-
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     

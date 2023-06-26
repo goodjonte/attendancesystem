@@ -10,6 +10,7 @@ export default function Absences(props){
 
     const displayAsPage = props.displayAsPage; //If true, display as page, if false, display as component
 
+    //UseEffect to get absences from database upon first render, then sets loading to false
     useEffect(() => {
         ApiOperations.GetAbsences().then(abs => {
             console.log(abs);
@@ -18,6 +19,7 @@ export default function Absences(props){
         });
     }, []);
 
+    //Function with switch statement to convert enum value to string
     function EnumToString(enumValue){
         switch(enumValue){
             case 0:
@@ -33,6 +35,7 @@ export default function Absences(props){
         }
     }
 
+    //Function to handle form submission of absent student
     function changeAttendanceStatus(e, absenceObject){
         e.preventDefault();
         var attendanceStatusSelected = e.target.status.value;

@@ -11,13 +11,13 @@ import Cookies from 'universal-cookie';
 import * as Operations from '../Operations/Operations';
 
 export default function NavBar(props) {
-
-        
-
         const [schoolName, setSchoolName] = useState("");
         const [usersName, setUsersName] = useState("User");
         const [role, setRole] = useState("Role");
 
+        //UseEffect to get school name from database upon first render for nav title
+        //Also gets users information if user is logged in
+        //User info is used to decide what to show in nav, also used to display name and role within nav
         useEffect(() => {
             if(props.userLoggedIn){
                 const cookies = new Cookies();
@@ -44,10 +44,10 @@ export default function NavBar(props) {
             ApiOperations.Get('Schools').then((response) => {
                 setSchoolName(response[0].schoolName);
             });
-
-            //eslint-disable-next-line
+          //eslint-disable-next-line
         }, []);
 
+        //Function to handle logging out
         function logOut(){
             const cookies = new Cookies();
             cookies.remove('JWT_Token');

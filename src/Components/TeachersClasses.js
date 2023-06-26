@@ -8,6 +8,8 @@ function TeachersClasses() {
     const [schoolClasses, setSchoolClasses] = useState(null);
     const [loading, setloading] = useState(true);
 
+    //UseEffect to get teachers classes upon first render
+    //In production will chang to get classes for current day and only current classes roll can be done
     useEffect(() => {
       const cookies = new Cookies();
       var headers = Operations.GetJWTPayload(cookies.get('JWT_Token'));
@@ -17,6 +19,7 @@ function TeachersClasses() {
       });
     },[]);
 
+    //Function to open class page
     function openClass(classId, className) {
       window.location.href = '/class?id=' + classId + '&name=' + className;
     }

@@ -1,13 +1,10 @@
-
 import '../App.css';
 import React from 'react';
 import SchoolWeekCreator from '../Components/SchoolWeekCreator';
 import * as Operations from '../Operations/Operations';
 import * as ApiOperations from '../Operations/ApiOperations';
 
-
 export default function Setup(){
-
     const [createSchoolWeek, setCreateSchoolWeek] = React.useState(false)
 
     function SubmitSchool(e) {

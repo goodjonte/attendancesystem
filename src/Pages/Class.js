@@ -13,17 +13,15 @@ function SchoolClass() {
     const [takingAttendance, setTakingAttendance] = useState(false);
     const [classPeriods, setClassPeriods] = useState([]);
 
-
-
     const urlParams = new URLSearchParams(window.location.search);
     const classId = urlParams.get('id');
 
-    
     const cookies = new Cookies();
     var currentToken = cookies.get('JWT_Token');
     var tokenClaims = Operations.GetJWTPayload(currentToken);//gets jwt payload section and decrypts it and turns into json object
     var UserRole = tokenClaims["Role"];
 
+    //UseEffect to get classes students and class info upon first render
     useEffect(() => {
         const daysLower = ["Monday","Tuesday","Wednesday","Thursday","Friday"];
         const urlParams = new URLSearchParams(window.location.search);
@@ -50,17 +48,15 @@ function SchoolClass() {
         })
     }, []);
 
-    function openForm() {
-        setHideButton(true);
-    } 
     function search(searchString) {
         ApiOperations.Get('User/GetStudents').then((data) => {
             let filteredData = data.filter((element) => (element.firstName + " " + element.lastName).toUpperCase().includes(searchString.trim().toUpperCase()));
             setResults(filteredData);
         });
     }
+
+    //Function to handle adding student fomr - only admins have access to this
     function addStudent(studentId, studentFullName) {
-       
         var Enrollment = {
             "enrollmentId": Operations.generateGuid(),
             "studentId": studentId,
@@ -74,14 +70,9 @@ function SchoolClass() {
         });
     }
 
-    function StartRoll() {
-        setTakingAttendance(true);
-    }
-
-
+    //Function to handle roll submission
     function AttendanceSubmit(e){
         e.preventDefault();
-
         var studentsAttendace = e.target.studentsAttendance;
         var dateValue = Operations.GetDateDbFormatNoTime();
         for (let i = 0; i < studentsAttendace.length; i++) {
@@ -140,14 +131,9 @@ function SchoolClass() {
                 default:
                     break;
             }
-
-            
-
         }
-
-
     }  
-    //Make into form with drop down box next to each student with absent, present, unjustified, justified
+    
     return (
     <div className="App">
         {
@@ -158,11 +144,11 @@ function SchoolClass() {
         :
         null
         }
-        <button onClick={() => StartRoll()}>Take Attendance</button>
+        <button onClick={() => setTakingAttendance(true)}>Take Attendance</button>
         {
             UserRole === "0" ?
             <div>
-            <h3 onClick={() => openForm()} className={hideButton ? 'hidden' : ''}>Assign students to class</h3>
+            <h3 onClick={() => setHideButton(true)} className={hideButton ? 'hidden' : ''}>Assign students to class</h3>
             <input type="text" className={hideButton ? '' : 'hidden'} name="searchString" id="searchString" onChange={(event) => { event.preventDefault(); search(event.target.value); }} />
             {
                 results.map((result) => {
