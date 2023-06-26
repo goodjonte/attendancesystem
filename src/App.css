@@ -151,6 +151,19 @@ a:hover {
   flex-direction: row;
   justify-content: space-between;
 }
+@media screen and (max-width: 500px) {
+  #TeacherHomeSecondRow {
+    flex-direction: column;
+    align-items: center;
+  }
+  #TeacherHomeSecondRow div {
+    width: 80% !important;
+    margin: 15px auto;
+  }
+  #TeacherHomeSecondRow div div {
+    width: 100% !important;
+  }
+}
 /*----  /\  TeacherHome  /\  ----*/
 
 
@@ -228,14 +241,14 @@ a:hover {
   margin: 50px auto;
   border: 2px solid var(--colorWhite);
   height: 600px;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: var(--colorBlack);
 }
 .NoticeBoard {
   width: 45%;
   border: 2px solid var(--colorWhite);
   height: 600px;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: var(--colorBlack);
 }
 .NoticesHeader {
@@ -348,7 +361,7 @@ a:hover {
   width: 45%;
   border: 2px solid var(--colorWhite);
   height: 600px;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: var(--colorBlack);
 }
 .AdminActionsMain {
@@ -356,7 +369,7 @@ a:hover {
   margin: 50px auto;
   border: 2px solid var(--colorWhite);
   height: 600px;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: var(--colorBlack);
 }
 #createClassTimeTable {
@@ -430,13 +443,21 @@ a:hover {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  height: 500px;
 }
 .Class {
   width: 150px;
+  max-height: 150px;
   margin: 5px;
-  border-radius: 10px;
+  border-radius: 5px;
   border: 1px solid var(--colorTeal);
   background-color: var(--colorGrey);
+  display: flex;
+  align-items: center;
+}
+.Class h2 {
+  text-align: center;
+  width: 100%;
 }
 .Class:hover {
   background-color: var(--colorBlack);
@@ -510,7 +531,7 @@ a:hover {
 /*----  \/  Absences  \/  ----*/
 .Absence {
   border: 2px var(--colorWhite) solid;
-  border-radius: 10px;
+  border-radius: 5px;
   width: 85%;
   margin: 25px auto;
   height: 500px;
@@ -518,7 +539,7 @@ a:hover {
 }
 .AbsenceMain {
   border: 2px var(--colorWhite) solid;
-  border-radius: 10px;
+  border-radius: 5px;
   width: 85%;
   margin: 25px auto;
   height: 800px;
