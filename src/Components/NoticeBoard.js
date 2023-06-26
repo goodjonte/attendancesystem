@@ -9,9 +9,11 @@ function NoticeBoard() {
     const [notices, setNotices] = useState([]);
     const [CreatingNoticeBool, setCreatingNoticeBool] = useState(false);
     const [validationMessage, setValidationMessage] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         ApiOperations.GetNotices().then(notes => setNotices(notes));
+        setLoading(false);
     }, []);
     // {
     //     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -80,6 +82,10 @@ function NoticeBoard() {
                 <h6>Date: {Operations.GetDateString()}</h6>
             </div>
         </div>
+        {loading ? 
+            <div class="spinner-border mt-10" role="status">
+            </div>
+            : 
         <div className={CreatingNoticeBool ? 'hidden' : 'Notices overflow-auto'}>
             {
                 notices.map(note => {
@@ -97,6 +103,7 @@ function NoticeBoard() {
                 })
             }
         </div>
+        }
         <div className={CreatingNoticeBool ? 'CreateNotice' : 'hidden'}>
             <h3>Create a new Notice</h3>
             <form onSubmit={(e) => NewNotice(e)}>

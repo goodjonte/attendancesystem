@@ -1,25 +1,106 @@
 .App {
   text-align: center;
   overflow-x: hidden;
+  color: var(--colorWhite);
+  background-color: var(--colorGrey);
+}
+body {
+  background-color: var(--colorGrey);
+}
+.colorTeal {
+  color: var(--colorTeal);
+}
+.colorTeal:hover {
+  color: var(--colorTealHover);
 }
 .hidden {
   display: none;
 }
 .spanButton {
-  border: 1px solid black;
+  border: 1px solid var(--colorWhite);
 }
 .TextLink {
   text-decoration: underline;
-  color: black;
+  color: var(--colorTeal);
+}
+.mt-10 {
+  margin-top: 10px;
 }
 .TextLink:hover {
-  color: gray;
+  color: var(--colorTealHover);
   cursor: pointer;
 }
 .flexColum {
   display: flex;
   flex-direction: column;
 }
+.wd80mauto {
+  width: 80%;
+  margin: auto;
+}
+:root {
+  --colorBlack: #222831;/*var(--colorBlack)*/
+  --colorGrey: #393E46;/*var(--colorGrey)*/
+  --colorTeal: #00ADB5;/*var(--colorTeal)*/
+  --colorTealHover: #00cbd6;
+  --colorWhite: #EEEEEE;/*var(--colorWhite)*/
+  --colorRed: #dc3545;/*var(--colorRed)*/
+  --svgFilterTeal : invert(48%) sepia(84%) saturate(630%) hue-rotate(138deg) brightness(91%) contrast(102%);
+  --svgFilterTealHover : invert(62%) sepia(24%) saturate(3903%) hue-rotate(139deg) brightness(98%) contrast(101%);
+}
+a {
+  color: var(--colorTeal);
+}
+a:hover {
+  color: var(--colorTealHover);
+}
+
+
+
+/*---- \/ Bootstrap overwrites \/ ----*/
+.dropdown-menu {
+  background-color: var(--colorGrey) !important;
+  color: var(--colorWhite) !important;
+  border: 1px solid var(--colorWhite) !important;
+}
+.dropdown-item {
+  color: var(--colorTeal) !important;
+}
+.dropdown-item:hover {
+  color: var(--colorTealHover);
+  background-color: var(--colorBlack) !important;
+}
+.nav-link {
+  color: var(--colorTeal);
+  text-decoration: underline;
+  text-align: center;
+}
+.nav-link:hover {
+  color: var(--colorTealHover);
+}
+.btn-success {
+  background-color: var(--colorTeal) !important;
+  border-color: var(--colorTeal) !important;
+}
+.btn-close {
+  opacity: 1;
+  filter: var(--svgFilterTeal) !important;
+}
+.btn-close:hover {
+  opacity: 1 !important;
+  filter: var(--svgFilterTealHover) !important;
+}
+.navbar-nav .nav-link.show {
+  color: var(--colorTealHover) !important;
+}
+.dropdown {
+  color: var(--colorTealHover) !important;
+}
+.input-group-text {
+  font-weight: bold;
+}
+/*---- /\ Bootstrap overwrites /\ ----*/
+
 
 /*---- Scrollbar ----*/
 /* width */
@@ -61,7 +142,24 @@
 /*---- AdminHome ----*/
 
 /*----   NavBar   ----*/
-
+.navbarCont {
+  background-color: var(--colorBlack) !important;
+}
+.navbar-toggler {
+  background-color: var(--colorTeal) !important;
+}
+.navbar-brand {
+  color: var(--colorWhite) !important;
+}
+.offcanvasNav {
+  background-color: var(--colorBlack) !important;
+  color: var(--colorWhite);
+}
+.logoutLink {
+  color: var(--colorRed);
+  text-decoration: underline;
+  cursor: pointer;
+}
 /*----   NavBar   ----*/
 
 /*----   SearchBox   ----*/
@@ -81,18 +179,36 @@
 .radioLabel{
   margin: 0 10px;
   text-align: left;
-}
+} 
 /*----   SearchBox   ----*/
 
 /*----   Login   ----*/
+.loginPage {
+  width: 40%;
+  margin: 50px auto;
+  text-align: center;
+}
+.LoginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.inputLoginPage {
+  margin: 5px;
+  width: 80%;
+}
+.loginTitle {
+  color: var(--colorWhite);
+}
 /*----   Login   ----*/
 
 /*----   Notice Board   ----*/
 .NoticeBoard {
   width: 45%;
-  border: 2px solid black;
+  border: 1px solid var(--colorWhite);
   height: 600px;
   border-radius: 10px;
+  background-color: var(--colorBlack);
 }
 .NoticesHeader {
   width: 100%;
@@ -100,7 +216,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 1px black solid;
+  border-bottom: 1px var(--colorWhite) solid;
 }
 .NoticesHeader div {
   margin-top: auto;
@@ -110,7 +226,8 @@
   margin: 10px 0 1px 10px;
 }
 .Note {
-  background-color: lightgray;
+  background-color: var(--colorGrey);
+  border: 1px solid var(--colorWhite);
   margin: 10px;
   border-radius: 5px;
   text-align: left;
@@ -130,7 +247,7 @@
   margin-right: 5px;
 }
 .ValidationMessage {
-  color: red;
+  color: var(--colorRed);
   font-weight: bold;
 }
 .Notices {
@@ -175,9 +292,60 @@
 /*---- AdminActions ----*/
 .AdminActions {
   width: 45%;
-  border: 2px solid black;
-  height: 500px;
+  border: 2px solid var(--colorWhite);
+  height: 600px;
   border-radius: 10px;
+  background-color: var(--colorBlack);
+}
+#createClassTimeTable {
+  margin: auto;
+}
+.userTypeSelect {
+  width: 80%;
+  margin: 15px auto;
+  text-decoration: underline;
+}
+.actionTitle {
+  margin: 125px 15px 35px 15px;
+}
+.newUserForm {
+  width: 80%;
+  margin: 15px auto;
+  display: flex;
+  flex-direction: column;
+}
+.newClassForm {
+  width: 80%;
+  margin: 15px auto;
+  display: flex;
+  flex-direction: column;
+}
+.newClassInput span{
+  width: 30%;
+  font-weight: bold;
+}
+.newUserInput {
+  margin: 5px;
+}
+.newUserInput span{
+  width: 25%;
+  font-weight: bold;
+}
+.teacherDropdown {
+  margin-top: 5px;
+}
+.teacherDropdown span{
+  width: 30%;
+  font-weight: bold;
+}
+.teacherDropdown select{
+  width: 70%;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-color: var(--colorWhite);
+}
+.mg-top-5px {
+  margin-top: 5px;
 }
 /*---- AdminActions ----*/
 
@@ -185,7 +353,7 @@
 .TeachersClasses {
   width: 50%;
   margin: auto;
-  border: 2px solid black;
+  border: 2px solid var(--colorWhite);
 }
 .Class {
   width: 20%;
@@ -194,7 +362,7 @@
   background-color: lightgray;
 }
 .Class:hover {
-  border: 1px solid black;
+  border: 1px solid var(--colorWhite);
   background-color: gray;
   width: 20%;
   margin: 5%;
@@ -208,7 +376,7 @@
 }
 .tableDisplayByColumns tr td{
   display: block;
-  border: 1px solid black;
+  border: 1px solid var(--colorWhite);
   height: 145px;
   text-align: center;
 }
@@ -225,17 +393,17 @@
   height: 145px;
 }
 .errorText {
-  color: red;
+  color: var(--colorRed);
 }
 
 .formSuccess {
   color: green;
 }
 .validationMessage {
-  color: red;
+  color: var(--colorRed);
 }
 .formTimeTable {
-  border: 2px solid black;
+  border: 1px solid var(--colorWhite);
 }
 .formTimeTable tr {
   display: table-cell;
@@ -245,7 +413,7 @@
 }
 .formTimeTable tr td{
   display: block;
-  border: 1px solid black;
+  border: 1px solid var(--colorWhite);
   height: 28px;
   text-align: center;
 }
@@ -255,11 +423,12 @@
 
 /*---- Absences ----*/
 .Absence {
-  border: 2px black solid;
+  border: 2px var(--colorWhite) solid;
   border-radius: 10px;
   width: 85%;
   margin: 25px auto;
   height: 500px;
+  background-color: var(--colorBlack);
 }
 .AbsencesBox {
   height: 430px;
@@ -275,7 +444,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 1px black solid;
+  border-bottom: 1px var(--colorWhite) solid;
 }
 .AbsencesHeader h1{
   margin: 10px 0 1px 0;
@@ -288,17 +457,23 @@
 }
 .AbsencesHeader div a{
   text-decoration: underline;
-  color: black;
+  color: var(--colorTeal);
 }
 .Absent {
   width: 90%;
   margin: 5px auto;
-  border: 1px solid black;
+  border: 1px solid var(--colorWhite);
   border-radius: 5px;
-  background-color: lightgray;
+  background-color: var(--colorGrey);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+.absentForm {
+  margin-right: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 .AbsentLeftText {
   display: flex;
@@ -311,4 +486,28 @@
   align-self: center;
   margin: 0 !important;
 }
+.truancyDropdown {
+  margin-top: 5px;
+  height: 30px !important;
+}
+.truancyDropdown span{
+  width: 30%;
+  font-weight: bold;
+  height: 30px !important;
+}
+.truancyDropdown select{
+  width: 70%;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-color: var(--colorWhite);
+  height: 30px !important;
+}
+.absentSubmit {
+  height: 30px !important;
+  padding: 0;
+}
+#absenceValidation {
+  color: var(--colorRed);
+}
 /* Absences */
+

@@ -5,11 +5,13 @@ import PDF from '../Assets/Attendance-code.pdf';
 export default function Absences(){
     const [absences, setAbsences] = useState([]);
     const [absenceValidationMessage, setAbsenceValidationMessage] = useState("");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         ApiOperations.GetAbsences().then(abs => {
             console.log(abs);
             setAbsences(abs);
+            setLoading(false);
         });
     }, []);
 
@@ -54,38 +56,51 @@ export default function Absences(){
             <div><a href={PDF} target="_blank" rel="noreferrer">View Attendace Code</a></div>
         </div>
         <div className='AbsencesBox'>
-        <div className='Absences overflow-auto'>
-            
-            <label id="absenceValidation">{absenceValidationMessage}</label>
-            {
-                absences.length === 0 ? <h2>All absences have been resolved</h2> :
+        {loading ? 
+            <div class="spinner-border mt-10" role="status">
+            </div>
+            : 
+            <div className='Absences overflow-auto'>
 
-                absences.map(abs => {
-                    return (
-                        <div className='Absent' key={abs.attendanceId}>
-                            <div className='AbsentLeftText'>
-                                <h5>Student: <a href={"/user?id="+abs.studentId}>{abs.studentName}</a></h5>
-                                <h5>Class: {abs.className}</h5>
+                
+                
+                <label id="absenceValidation">{absenceValidationMessage}</label>
+                {
+                    absences.length === 0 ? <h2>All absences have been resolved</h2> :
+
+                    absences.map(abs => {
+                        return (
+                            <div className='Absent' key={abs.attendanceId}>
+                                <div className='AbsentLeftText'>
+                                    <h5>Student: <a className='colorTeal' href={"/user?id="+abs.studentId}>{abs.studentName}</a></h5>
+                                    <h5>Class: {abs.className}</h5>
+                                </div>
+                                <p className='WasMarked'>
+                                    Student was marked - {EnumToString(abs.status)}
+                                </p>
+                                <form className='absentForm' onSubmit={(e) => changeAttendanceStatus(e, abs)}>
+                                    <div className="input-group truancyDropdown">
+                                        <span className="input-group-text" id="inputGroup-sizing-default">
+                                        Truancy:
+                                        </span>
+                                        <select className="custom-select" name="status">
+                                        <option value="unselected">Select Truancy Code...</option>
+                                            <option value="0">Present</option>
+                                            <option value="1">Justified</option>
+                                            <option value="2">Unjustified</option>
+                                            <option value="3">Overseas Justified</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <button className='btn btn-success absentSubmit' type="submit" value="Submit">Resolve Absence</button>
+                                </form>
                             </div>
-                            <p className='WasMarked'>
-                                Student was marked - {EnumToString(abs.status)}
-                            </p>
-                            <form onSubmit={(e) => changeAttendanceStatus(e, abs)}>
-                                <select name="status" id="status">
-                                    <option value="unselected">Select a Truancy Code...</option>
-                                    <option value="0">Present</option>
-                                    <option value="1">Justified</option>
-                                    <option value="2">Unjustified</option>
-                                    <option value="3">Overseas Justified</option>
-                                </select>
-                                
-                                <button type="submit" value="Submit">Resolve Absence</button>
-                            </form>
-                        </div>
-                    )
-                })
-            }
-        </div>
+                        )
+                    })
+                }
+           
+            </div>
+        }
         </div>
       </div>
     );

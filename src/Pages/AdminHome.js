@@ -10,7 +10,7 @@ function AdminHome() {
 
   return (
     <div className="App">
-      <NavBar />
+      <NavBar userLoggedIn={true}/>
       <Absences />
       <div id="AdminHomeSecondRow">
         <NoticeBoard />

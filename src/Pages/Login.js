@@ -3,6 +3,7 @@ import '../App.css';
 import React from 'react';
 import Cookies from 'universal-cookie';
 import Config from '../Config.js';  
+import NavBar from '../Components/NavBar.js';
 
 
 export default function Login(){
@@ -48,9 +49,10 @@ export default function Login(){
 
     return (
         <div className='Page'>
+            <NavBar userLoggedIn={false}/>
             <div className='loginPage'>
                 <div className={ "loginBox" }>
-                    <h2 className='text-color'>Login</h2>
+                    <h2 className='loginTitle'>Login</h2>
                     <form className='LoginForm' method="post" onSubmit={LoginSubmit}>
                         
                         <div className="input-group inputLoginPage">
@@ -63,7 +65,7 @@ export default function Login(){
                             <input className='form-control' type="password" name="passwordLogin" autoComplete='current-password' id="passwordLogin" />
                         </div>
                         {registerMessage}
-                        <button type='submit' className='btn btn-outline-dark'>Submit</button>
+                        <button type='submit' className='btn btn-success mt-10'>Submit</button>
                     </form>
                 </div>
 
