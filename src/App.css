@@ -329,6 +329,14 @@ a:hover {
   border-radius: 10px;
   background-color: var(--colorBlack);
 }
+.AdminActionsMain {
+  width: 45%;
+  margin: 50px auto;
+  border: 2px solid var(--colorWhite);
+  height: 600px;
+  border-radius: 10px;
+  background-color: var(--colorBlack);
+}
 #createClassTimeTable {
   margin: auto;
 }

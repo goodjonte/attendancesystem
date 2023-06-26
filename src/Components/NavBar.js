@@ -87,9 +87,9 @@ export default function NavBar(props) {
                             title="Admin Actions"
                             id={`offcanvasNavbarDropdown-expand-${false}`}
                         >
-                            <NavDropdown.Item href="#action3">Add a Teacher</NavDropdown.Item>
-                            <NavDropdown.Item href="#action3">Add a Student</NavDropdown.Item>
-                            <NavDropdown.Item href="#action3">Add a Class</NavDropdown.Item>
+                            <NavDropdown.Item href="/adminaction?action=teacher">Add a Teacher</NavDropdown.Item>
+                            <NavDropdown.Item href="/adminaction?action=student">Add a Student</NavDropdown.Item>
+                            <NavDropdown.Item href="/adminaction?action=class">Add a Class</NavDropdown.Item>
                             
                         </NavDropdown>
                         

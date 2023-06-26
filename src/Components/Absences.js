@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as ApiOperations from '../Operations/ApiOperations';
 import PDF from '../Assets/Attendance-code.pdf';
+import Loading from './Loading';
 
 export default function Absences(props){
     const [absences, setAbsences] = useState([]);
@@ -59,8 +60,7 @@ export default function Absences(props){
         </div>
         <div className='AbsencesBox'>
         {loading ? 
-            <div class="spinner-border mt-10" role="status">
-            </div>
+            <Loading />
             : 
             <div className={displayAsPage ? 'AbsencesMain overflow-auto' : 'Absences overflow-auto'}>
 

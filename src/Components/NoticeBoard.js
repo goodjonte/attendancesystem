@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import * as Operations from '../Operations/Operations';
 import * as ApiOperations from '../Operations/ApiOperations';
 import Cookies from 'universal-cookie';
+import Loading from './Loading';
 
 function NoticeBoard(props) {
 
@@ -85,8 +86,7 @@ function NoticeBoard(props) {
             </div>
         </div>
         {loading ? 
-            <div class="spinner-border mt-10" role="status">
-            </div>
+            <Loading />
             : 
         <div className={CreatingNoticeBool ? 'hidden' : displayAsPage ? 'NoticesMain overflow-auto' : 'Notices overflow-auto'}>
             {

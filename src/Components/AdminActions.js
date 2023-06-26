@@ -2,14 +2,42 @@ import '../App.css';
 import { useEffect, useState } from 'react';
 import * as Operations from '../Operations/Operations';
 import * as ApiOperations from '../Operations/ApiOperations';
+import Loading from './Loading';
 
-function AdminActions() {
+function AdminActions(props) {
     const [hideButton, setHideButton] = useState(null);
     const [teachersList, setTeachersList] = useState(null);
     const [timeTable, setTimeTable] = useState(null);
     const [createClassErrorMessage, setCreateClassErrorMessage] = useState(null);
     const [adminActionsMessage, setAdminActionsMessage] = useState(null);
     const [validationMessage, setValidationMessage] = useState(null);
+    const [mainPageBool, setMainPageBool] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      const requestedAction = props.action;
+      switch(requestedAction) {
+        case "none":
+          setMainPageBool(true);
+          break;
+        case "student":
+          setHideButton("student");
+          setMainPageBool(true);
+          break;
+        case "teacher":
+          setHideButton("teacher");
+          setMainPageBool(true);
+          break;
+        case "class":
+          setHideButton("class");
+          setMainPageBool(true);
+          GetTeachers();
+          break;
+        default:
+          break;
+      }
+      setLoading(false);
+    }, [props.action]);
 
     function CreateUser(e, userType){
       e.preventDefault();
@@ -217,10 +245,14 @@ function AdminActions() {
       });// eslint-disable-next-line
     }, []);
 
-   
-
+    
+    if(loading){
+      return (
+        <Loading />
+      )
+    }
     return (
-      <div className="AdminActions">
+      <div className={mainPageBool ? "AdminActionsMain" : "AdminActions"}>
           <h3 className={hideButton === null ? 'actionTitle' : 'hidden'}> Admin Actions: </h3>
           <h3 onClick={() => SelectForm("student")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a Student</h3>
           <h3 onClick={() => SelectForm("teacher")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a Teacher</h3>
