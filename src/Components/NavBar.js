@@ -80,7 +80,7 @@ export default function NavBar(props) {
                     <Nav className="justify-content-end flex-grow-1 pe-3">
                         
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/">Notices</Nav.Link>
+                        <Nav.Link href="/notices">Notices</Nav.Link>
                         <Nav.Link href="/">Absences</Nav.Link>
                         
                         <NavDropdown

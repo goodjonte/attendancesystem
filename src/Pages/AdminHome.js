@@ -13,7 +13,7 @@ function AdminHome() {
       <NavBar userLoggedIn={true}/>
       <Absences />
       <div id="AdminHomeSecondRow">
-        <NoticeBoard />
+        <NoticeBoard displayAsPage={false}/>
         <AdminActions />
       </div>
       

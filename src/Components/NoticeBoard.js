@@ -4,12 +4,14 @@ import * as Operations from '../Operations/Operations';
 import * as ApiOperations from '../Operations/ApiOperations';
 import Cookies from 'universal-cookie';
 
-function NoticeBoard() {
+function NoticeBoard(props) {
 
     const [notices, setNotices] = useState([]);
     const [CreatingNoticeBool, setCreatingNoticeBool] = useState(false);
     const [validationMessage, setValidationMessage] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const displayAsPage = props.displayAsPage; //If true, display as page, if false, display as component
 
     useEffect(() => {
         ApiOperations.GetNotices().then(notes => setNotices(notes));
@@ -74,7 +76,7 @@ function NoticeBoard() {
     }
 
     return (
-      <div className="NoticeBoard">
+      <div className={displayAsPage ? "NoticeBoardMain" : "NoticeBoard"} >
         <div className="NoticesHeader">
             <h1>Notices</h1>
             <div>
@@ -86,7 +88,7 @@ function NoticeBoard() {
             <div class="spinner-border mt-10" role="status">
             </div>
             : 
-        <div className={CreatingNoticeBool ? 'hidden' : 'Notices overflow-auto'}>
+        <div className={CreatingNoticeBool ? 'hidden' : displayAsPage ? 'NoticesMain overflow-auto' : 'Notices overflow-auto'}>
             {
                 notices.map(note => {
                     return (
@@ -104,7 +106,7 @@ function NoticeBoard() {
             }
         </div>
         }
-        <div className={CreatingNoticeBool ? 'CreateNotice' : 'hidden'}>
+        <div className={CreatingNoticeBool ? displayAsPage ? "CreateNoticeMain" : "CreateNotice" : 'hidden'}>
             <h3>Create a new Notice</h3>
             <form onSubmit={(e) => NewNotice(e)}>
                 <div className="input-group ">

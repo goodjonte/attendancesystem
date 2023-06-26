@@ -203,9 +203,17 @@ a:hover {
 /*----   Login   ----*/
 
 /*----   Notice Board   ----*/
+.NoticeBoardMain {
+  width: 80%;
+  margin: 50px auto;
+  border: 2px solid var(--colorWhite);
+  height: 600px;
+  border-radius: 10px;
+  background-color: var(--colorBlack);
+}
 .NoticeBoard {
   width: 45%;
-  border: 1px solid var(--colorWhite);
+  border: 2px solid var(--colorWhite);
   height: 600px;
   border-radius: 10px;
   background-color: var(--colorBlack);
@@ -254,7 +262,18 @@ a:hover {
   height: 530px;
   overflow-x: hidden !important;
 }
+.NoticesMain {
+  height: 530px;
+  overflow-x: hidden !important;
+}
 @media screen and (max-width: 890px) {
+  .NoticesMain {
+    height: 570px;
+    overflow-x: hidden !important;
+  }
+  .NoticeBoardMain {
+    height: 700px;
+  }
   .Notices {
     height: 430px;
     overflow-x: hidden !important;
@@ -280,11 +299,24 @@ a:hover {
 .CreateNotice form div textarea {
   height: 200px;
 }
+.CreateNoticeMain h3 {
+  margin: 5px;
+}
+.CreateNoticeMain form div {
+  width: 60%;
+  margin: 15px auto;
+}
+.CreateNoticeMain form div textarea {
+  height: 200px;
+}
 .backButton {
   width: 25% !important; 
   margin:  15px auto !important;
 }
 .CreateNotice form div span {
+  width: 72px;
+}
+.CreateNoticeMain form div span {
   width: 72px;
 }
 /*----   Notice Board   ----*/
