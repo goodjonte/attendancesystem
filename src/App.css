@@ -521,9 +521,7 @@ a:hover {
   height: 28px;
   text-align: center;
 }
-.spanLink {
-  text-decoration: underline;
-}
+
 /*----  /\  School Week  /\  ----*/
 
 
@@ -648,3 +646,65 @@ a:hover {
 }
 /*----  /\  Absences  /\  ----*/
 
+
+
+/*---- \/  Class Page  \/ ----*/
+.classPage {
+  border: 2px var(--colorWhite) solid;
+  border-radius: 5px;
+  background-color: var(--colorBlack);
+  width: 85%;
+  margin: 25px auto;
+}
+.ClassInfo {
+  background-color: var(--colorBlack);
+  border-bottom: 1px var(--colorWhite) solid;
+  text-align: left;
+  padding-left: 10px;
+}
+.studentList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.RollStudent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 5px;
+  border-bottom: 1px var(--colorWhite) solid;
+}
+.attendaceSelectDropdown {
+  height: 30px;
+}
+.rollSubmitButton {
+  margin: 10px;
+}
+.AssignStudents {
+  border: 2px var(--colorWhite) solid;
+  border-radius: 5px;
+  background-color: var(--colorBlack);
+  width: 85%;
+  margin: 10px auto;
+}
+.assignTitle {
+  margin: 10px;
+}
+.assignSearch {
+  margin: 0  0 10px 0;
+}
+.spanLink {
+  text-decoration: underline;
+}
+.student {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
+  margin: 5px auto;
+  padding: 5px;
+  border-bottom: 1px var(--colorWhite) solid;
+}

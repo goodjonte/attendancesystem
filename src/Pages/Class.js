@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import * as ApiOperations from '../Operations/ApiOperations';
 import * as Operations from '../Operations/Operations';
 import Cookies from 'universal-cookie';
+import NavBar from '../Components/NavBar';
 
 function SchoolClass() {
     const [Enrollments, setEnrollments] = useState(null);
     const [loading, setloading] = useState(true);
-    const [hideButton, setHideButton] = useState(false);
     const [results, setResults] = useState([]);
     const [classObject, setClassObject] = useState(null);
     const [takingAttendance, setTakingAttendance] = useState(false);
@@ -30,7 +30,7 @@ function SchoolClass() {
             setEnrollments(response);
             setloading(false);
         })
-        ApiOperations.Get("SchoolClasses/"+classId+'/false').then((response) => {
+        ApiOperations.Get("SchoolClasses/GetClassInfo/"+classId).then((response) => {
             setClassObject(response);
         })
         ApiOperations.Get("ClassesPeriods/"+classId).then((response) => {
@@ -136,36 +136,23 @@ function SchoolClass() {
     
     return (
     <div className="App">
+        <NavBar userLoggedIn={true}/>
+        <div className='classPage'>
         {
         classObject != null ? 
         <div className="ClassInfo">
-            {classObject[0].className} {classObject[0].teacherId}
+            <h1>Class: {classObject.className} </h1>
+            <h1>Teacher: {classObject.teachersName}</h1>
         </div>
         :
         null
         }
-        <button onClick={() => setTakingAttendance(true)}>Take Attendance</button>
-        {
-            UserRole === "0" ?
-            <div>
-            <h3 onClick={() => setHideButton(true)} className={hideButton ? 'hidden' : ''}>Assign students to class</h3>
-            <input type="text" className={hideButton ? '' : 'hidden'} name="searchString" id="searchString" onChange={(event) => { event.preventDefault(); search(event.target.value); }} />
-            {
-                results.map((result) => {
-                    return(
-                    <div>
-                        <span>{result.firstName} {result.lastName}</span>
-                        <span className="spanLink" onClick={() => addStudent(result.id, result.firstName +" "+ result.lastName)}>add student</span>
-                    </div>
-                    );
-                })
-            }
-            </div>
-            :
-            null
-        }
         
-        
+        {takingAttendance ? 
+        <div onClick={() => setTakingAttendance(false)} className="btn btn-danger mt-10" >Back</div> 
+        : 
+        <button onClick={() => setTakingAttendance(true)} className="btn btn-success mt-10">Take Attendance</button>
+        }        
         {
         loading ? <div className="spinner-border" role="status"></div>:
             <form onSubmit={(e) => AttendanceSubmit(e)}>
@@ -183,6 +170,7 @@ function SchoolClass() {
                 : 
                 null
             } 
+            <div className='studentList'>
             {
             Enrollments == null || Enrollments === [] ? "No Students" : Enrollments.map(student => {
             return (
@@ -190,7 +178,7 @@ function SchoolClass() {
                     <h2>{student.studentName}</h2>
                     {
                     takingAttendance ? 
-                    <select name="studentsAttendance" id={student.studentId}>
+                    <select className='attendaceSelectDropdown' name="studentsAttendance" id={student.studentId}>
                         <option value="present">In class</option>
                         <option value="absent">Not in class</option>
                         <option value="presentLate">Late</option>
@@ -200,10 +188,34 @@ function SchoolClass() {
                 </div>
             )})
             }
+            </div>
             {
-            takingAttendance ? <input type='submit' value='Submit Roll' /> : null
+            takingAttendance ? <input type='submit' className='btn btn-success rollSubmitButton' value='Submit Roll' /> : null
             } 
             </form>
+        }
+        </div>
+        {
+            UserRole === "0" ?
+            <div className='AssignStudents'>
+            <h1 className='assignTitle'>Assign Students to Class</h1>
+
+            <p className='mt-10'>Search For Student:</p>
+            <input type="text" className='assignSearch' name="searchString" id="searchString" onChange={(event) => { event.preventDefault(); search(event.target.value); }} />
+
+            {
+                results.map((result) => {
+                    return(
+                    <div className='student'>
+                        <span>{result.firstName} {result.lastName}</span>
+                        <span className="spanLink" onClick={() => addStudent(result.id, result.firstName +" "+ result.lastName)}>add student</span>
+                    </div>
+                    );
+                })
+            }
+            </div>
+            :
+            null
         }
     </div>
   );
