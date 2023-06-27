@@ -4,11 +4,12 @@ import * as ApiOperations from '../Operations/ApiOperations';
 import * as Operations from '../Operations/Operations';
 import Cookies from 'universal-cookie';
 import NavBar from '../Components/NavBar';
+import AssignStudents from '../Components/AssignStudents';
 
 function SchoolClass() {
     const [Enrollments, setEnrollments] = useState(null);
     const [loading, setloading] = useState(true);
-    const [results, setResults] = useState([]);
+    // const [results, setResults] = useState([]);
     const [classObject, setClassObject] = useState(null);
     const [takingAttendance, setTakingAttendance] = useState(false);
     const [classPeriods, setClassPeriods] = useState([]);
@@ -20,6 +21,10 @@ function SchoolClass() {
     var currentToken = cookies.get('JWT_Token');
     var tokenClaims = Operations.GetJWTPayload(currentToken);//gets jwt payload section and decrypts it and turns into json object
     var UserRole = tokenClaims["Role"];
+
+    function enrollmentSetter(data) {
+        setEnrollments(data);
+    }
 
     //UseEffect to get classes students and class info upon first render
     useEffect(() => {
@@ -48,27 +53,27 @@ function SchoolClass() {
         })
     }, []);
 
-    function search(searchString) {
-        ApiOperations.Get('User/GetStudents').then((data) => {
-            let filteredData = data.filter((element) => (element.firstName + " " + element.lastName).toUpperCase().includes(searchString.trim().toUpperCase()));
-            setResults(filteredData);
-        });
-    }
+    // function search(searchString) {
+    //     ApiOperations.Get('User/GetStudents').then((data) => {
+    //         let filteredData = data.filter((element) => (element.firstName + " " + element.lastName).toUpperCase().includes(searchString.trim().toUpperCase()));
+    //         setResults(filteredData);
+    //     });
+    // }
 
     //Function to handle adding student fomr - only admins have access to this
-    function addStudent(studentId, studentFullName) {
-        var Enrollment = {
-            "enrollmentId": Operations.generateGuid(),
-            "studentId": studentId,
-            "classId": classId,
-            "studentName": studentFullName
-        }
-        ApiOperations.Post(Enrollment, 'Enrollments').then((response) => {
-            ApiOperations.GetClassesStudents(classId).then((response) => {
-                setEnrollments(response);
-            })
-        });
-    }
+    // function addStudent(studentId, studentFullName) {
+    //     var Enrollment = {
+    //         "enrollmentId": Operations.generateGuid(),
+    //         "studentId": studentId,
+    //         "classId": classId,
+    //         "studentName": studentFullName
+    //     }
+    //     ApiOperations.Post(Enrollment, 'Enrollments').then((response) => {
+    //         ApiOperations.GetClassesStudents(classId).then((response) => {
+    //             setEnrollments(response);
+    //         })
+    //     });
+    // }
 
     //Function to handle roll submission
     function AttendanceSubmit(e){
@@ -197,23 +202,7 @@ function SchoolClass() {
         </div>
         {
             UserRole === "0" ?
-            <div className='AssignStudents'>
-            <h1 className='assignTitle'>Assign Students to Class</h1>
-
-            <p className='mt-10'>Search For Student:</p>
-            <input type="text" className='assignSearch' name="searchString" id="searchString" onChange={(event) => { event.preventDefault(); search(event.target.value); }} />
-
-            {
-                results.map((result) => {
-                    return(
-                    <div className='student'>
-                        <span>{result.firstName} {result.lastName}</span>
-                        <span className="spanLink" onClick={() => addStudent(result.id, result.firstName +" "+ result.lastName)}>add student</span>
-                    </div>
-                    );
-                })
-            }
-            </div>
+            <AssignStudents EnrollmentSetter={enrollmentSetter} classId={classId}/>
             :
             null
         }
