@@ -252,6 +252,7 @@ function AdminActions(props) {
           <h3 onClick={() => SelectForm("student")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a Student</h3>
           <h3 onClick={() => SelectForm("teacher")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a Teacher</h3>
           <h3 onClick={() => SelectForm("class")} className={hideButton === null ? 'userTypeSelect' : 'hidden'}> Create a Class</h3>
+          <h3 onClick={() => {window.location.href = "/AssignStudents"}} className={hideButton === null ? 'userTypeSelect' : 'hidden'}>Assign Student to a Class</h3>
           <h4 className={adminActionsMessage === null ? 'hidden' : 'formSuccess'} >{adminActionsMessage}</h4>
 
           <div className={hideButton === 'student' ? 'newUserForm' : 'hidden'}>

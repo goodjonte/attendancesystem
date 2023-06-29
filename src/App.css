@@ -267,7 +267,7 @@ a:hover {
   background-color: var(--colorBlack);
 }
 .NoticeBoard {
-  width: 45%;
+  width: 50%;
   border: 2px solid var(--colorWhite);
   height: 600px;
   border-radius: 5px;
@@ -387,7 +387,7 @@ a:hover {
   background-color: var(--colorBlack);
 }
 .AdminActionsMain {
-  width: 45%;
+  width: 50%;
   margin: 50px auto;
   border: 2px solid var(--colorWhite);
   height: 600px;
@@ -401,6 +401,11 @@ a:hover {
   width: 80%;
   margin: 15px auto;
   text-decoration: underline;
+  cursor: pointer;
+  color: var(--colorTeal);
+}
+.userTypeSelect:hover {
+  color: var(--colorTealHover);
 }
 .actionTitle {
   margin: 125px 15px 35px 15px;
