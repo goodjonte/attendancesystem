@@ -309,5 +309,26 @@ async function ResolveAbsence(absenceObject){
     }
 }
 
+async function Delete(apiString){
+    var response;
+    try{
+        response = await fetch(apiURL + apiString, {
+            method: 'DELETE',
+            headers: {
+            'accept' : 'application/json',
+            'Content-Type' : 'application/json',
+            }
+        });
+        if(response.ok){
+            return "Success";
+        }
+        return await response;
+    }catch(err){
+        console.log(err);
 
-export { ResolveAbsence, GetAbsences, GetUsersName, DatabaseTest, AsignClassToPeriod, GetClassesStudents, Post, GetTeachersClasses, GetNotices, CreateUser, CreatePeriod, CreateDay, CreateWeek, CreateSchool, LoginUser, CreateClass, GetTeachers, Get };
+    }
+}
+
+
+
+export { Delete, ResolveAbsence, GetAbsences, GetUsersName, DatabaseTest, AsignClassToPeriod, GetClassesStudents, Post, GetTeachersClasses, GetNotices, CreateUser, CreatePeriod, CreateDay, CreateWeek, CreateSchool, LoginUser, CreateClass, GetTeachers, Get };

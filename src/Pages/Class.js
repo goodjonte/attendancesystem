@@ -137,7 +137,21 @@ function SchoolClass() {
                     break;
             }
         }
-    }  
+    }
+
+    function removeStudent(studentId, classId) {
+        //eslint-disable-next-line
+        if(!confirm("Are you sure you want to delete this user?")) return; //Confirmation of deletion
+        ApiOperations.Delete('Enrollments/' + studentId + '/' + classId).then((response) => {
+            if(response === "Success"){
+                ApiOperations.GetClassesStudents(classId).then((response) => {
+                    setEnrollments(response);
+                })
+            }else{
+                console.log(response);
+            }
+        });
+    }
     
     return (
     <div className="App">
@@ -181,6 +195,13 @@ function SchoolClass() {
             return (
                 <div className='RollStudent' key={student.enrollmentId}>
                     <h2>{student.studentName}</h2>
+                    {
+                        takingAttendance ? null :
+                        UserRole === "0" ?
+                        <h6 className='redText underline' onClick={() => {removeStudent(student.studentId, classId)}}>Remove Student</h6>
+                        :
+                        null
+                    }
                     {
                     takingAttendance ? 
                     <select className='attendaceSelectDropdown' name="studentsAttendance" id={student.studentId}>

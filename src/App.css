@@ -39,6 +39,9 @@ body {
   width: 80%;
   margin: auto;
 }
+.underline {
+  text-decoration: underline;
+}
 :root {
   --colorBlack: #222831;/*var(--colorBlack)*/
   --colorGrey: #393E46;/*var(--colorGrey)*/
