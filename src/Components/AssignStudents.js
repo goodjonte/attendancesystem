@@ -14,6 +14,7 @@ export default function AssignStudents(props) {
     var students;
     const EnrollmentSetter = props.EnrollmentSetter;
     
+    //Use effect to get all classes if this is the main page - as a class will need to be selected
     useEffect(() => {
         if(classId === undefined || classId === null || classId === "") { 
             setMainPage(true);
@@ -23,10 +24,7 @@ export default function AssignStudents(props) {
         };//eslint-disable-next-line
     }, []);
 
-    // useEffect(() => {
-    // }, [confirmation]);
-
-
+    //Function which is called when "add student is clicked" - checks if student is already in class and will add them if not
     async function addStudent(studentId, studentFullName) {
         if(mainPage && document.getElementById('classIdDropdown').value === "none") {
             setValidation("Please select a class");
@@ -61,6 +59,7 @@ export default function AssignStudents(props) {
         });
     }
 
+    //Search function called upon typing in the search bar
     function search(searchString) {
         if(searchString === "") return;
         ApiOperations.Get('User/GetStudents').then((data) => {
