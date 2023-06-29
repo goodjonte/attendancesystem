@@ -90,6 +90,7 @@ export default function NavBar(props) {
                             <NavDropdown.Item href="/adminaction?action=teacher">Add a Teacher</NavDropdown.Item>
                             <NavDropdown.Item href="/adminaction?action=student">Add a Student</NavDropdown.Item>
                             <NavDropdown.Item href="/adminaction?action=class">Add a Class</NavDropdown.Item>
+                            <NavDropdown.Item href="/AssignStudents">Assign Student to Class</NavDropdown.Item>
                             
                         </NavDropdown>
                         

@@ -42,7 +42,7 @@ body {
 :root {
   --colorBlack: #222831;/*var(--colorBlack)*/
   --colorGrey: #393E46;/*var(--colorGrey)*/
-  --colorTeal: #00ADB5;/*var(--colorTeal)*/
+  --colorTeal: #00adb5;/*var(--colorTeal)*/
   --colorTealHover: #00cbd6;
   --colorWhite: #EEEEEE;/*var(--colorWhite)*/
   --colorRed: #dc3545;/*var(--colorRed)*/
@@ -55,6 +55,28 @@ a {
 a:hover {
   color: var(--colorTealHover);
 }
+.redText {
+  color: var(--colorRed);
+}
+
+/* Change color */
+/* Change color */
+.tealText {
+  color: var(--colorTeal);
+}
+.tealTextAnimation {
+  animation: change-color-1 1s linear;
+}
+
+@keyframes change-color-1 {
+  from {
+    color: #6cf8ff;
+  }
+  to {
+    color: var(--colorTeal);
+  } 
+}
+
 /*---- /\ Universal /\ ----*/
 
 
@@ -693,9 +715,15 @@ a:hover {
   background-color: var(--colorBlack);
   width: 85%;
   margin: 10px auto;
+  color: var(--colorWhite);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .assignTitle {
   margin: 10px;
+  color: var(--colorWhite);
+  text-align: center;
 }
 .assignSearch {
   margin: 0  0 10px 0;
@@ -712,4 +740,8 @@ a:hover {
   margin: 5px auto;
   padding: 5px;
   border-bottom: 1px var(--colorWhite) solid;
+}
+.dropdownAssign {
+  width: 150px;
+  margin: auto;
 }
