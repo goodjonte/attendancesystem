@@ -67,8 +67,7 @@ function AdminActions(props) {
           };
           ApiOperations.CreateUser(teacherObject);
           setAdminActionsMessage("Teacher Added");
-          setHideButton(null);
-          setValidationMessage(null);
+          ClearForms();
           break;
         case 2://student
           if(e.target.parentName.value === "" || e.target.parentPhone.value === "" || e.target.firstName.value === "" || e.target.lastName.value === ""){
@@ -86,8 +85,7 @@ function AdminActions(props) {
           };
           ApiOperations.CreateUser(studentObject);  
           setAdminActionsMessage("Student Added");
-          setHideButton(null);
-          setValidationMessage(null);
+          ClearForms();
           break;
         default:
           console.log("unknown user type");
@@ -121,13 +119,20 @@ function AdminActions(props) {
         setCreateClassErrorMessage("Please enter a class name");
         return;
       }
+      if(e.target.teacher.value === "none"){
+        setCreateClassErrorMessage("Please select a teacher");
+        return;
+      }
       var allTableDs = document.getElementsByTagName("td");
       var results = [];
       for(var x=0;x<allTableDs.length;x++)
-          if(allTableDs[x].style.backgroundColor === "lightgreen")
+          if(allTableDs[x].style.backgroundColor === "rgb(0, 173, 181)")
               results.push(allTableDs[x]);
       console.log(results);
-
+      if(results.length === 0){
+        setCreateClassErrorMessage("Please select at least one period");
+        return;
+      }
       var classId = Operations.generateGuid();
 
       let createClassObject = {
@@ -147,6 +152,7 @@ function AdminActions(props) {
         ApiOperations.AsignClassToPeriod(assignObject);
         console.log(assignObject);
       }
+      ClearForms();
       setAdminActionsMessage("Class Created");
       setHideButton(null);
       setValidationMessage(null);
@@ -164,10 +170,14 @@ function AdminActions(props) {
       if(periodId.includes("Break")){
         return;
       }
-      if(document.getElementById(periodId).style.backgroundColor === "lightgreen"){
+      if(document.getElementById(periodId).style.backgroundColor === "rgb(0, 173, 181)"){
         document.getElementById(periodId).style.backgroundColor = "";
+        document.getElementById(periodId).style.color = "";
+        document.getElementById(periodId).style.fontWeight = "";
       }else{
-        document.getElementById(periodId).style.backgroundColor = "lightgreen";
+        document.getElementById(periodId).style.backgroundColor = "#00adb5";
+        document.getElementById(periodId).style.color = "#393E46";
+        document.getElementById(periodId).style.fontWeight = "bold";
       }
     }
 
@@ -239,6 +249,25 @@ function AdminActions(props) {
         
     }
 
+    //Function that clears form after back button is clicked or a user is created
+    function ClearForms(){
+      document.getElementById("CreateAStudent").reset();
+      document.getElementById("CreateATeacher").reset();
+      document.getElementById("CreateClassForm").reset();
+      setHideButton(null);
+      setValidationMessage(null);
+      var allTableDs = document.getElementsByTagName("td");
+      var results = [];
+      for(var x=0;x<allTableDs.length;x++)
+          if(allTableDs[x].style.backgroundColor === "rgb(0, 173, 181)")
+              results.push(allTableDs[x]);
+      for(var v=0;v<allTableDs.length;v++){
+        allTableDs[v].style.backgroundColor = "";
+        allTableDs[v].style.color = "";
+        allTableDs[v].style.fontWeight = "";
+      }
+    }
+
     //Show loading screen if loading bool is true
     if(loading){
       return (
@@ -257,7 +286,7 @@ function AdminActions(props) {
 
           <div className={hideButton === 'student' ? 'newUserForm' : 'hidden'}>
             <h2>Add a Student</h2>
-            <form method="post" onSubmit={(e) => CreateUser(e, 2)}>
+            <form id="CreateAStudent" method="post" onSubmit={(e) => CreateUser(e, 2)}>
               <div className="input-group newUserInput">
                 <span className="input-group-text" id="inputGroup-sizing-default">First Name: </span>
                 <input type="text" name='firstName' className="form-control" />
@@ -277,13 +306,13 @@ function AdminActions(props) {
               
               <h4 className={validationMessage !== null ? "validationMessage" : ""}>{validationMessage}</h4>
               <button className="btn btn-success wd80mauto" type='submit' name='submit' >Submit</button>
-              <div onClick={() => {setHideButton(null); setValidationMessage(null);}} className="btn btn-danger backButton wd80mauto" >Back</div>
+              <div onClick={() => {ClearForms();}} className="btn btn-danger backButton wd80mauto" >Back</div>
             </form>
           </div>
           
-          <div className={hideButton === 'teacher' ? 'newUserForm' : 'hidden'}>
+          <div id="CreateAUser"  className={hideButton === 'teacher' ? 'newUserForm' : 'hidden'}>
             <h2>Add a Teacher</h2>
-            <form method="post" onSubmit={(e) => CreateUser(e, 1)}>
+            <form id="CreateATeacher" method="post" onSubmit={(e) => CreateUser(e, 1)}>
               <div className="input-group newUserInput">
                 <span className="input-group-text" id="inputGroup-sizing-default">First Name: </span>
                 <input type="text" name='firstName' className="form-control" />
@@ -303,13 +332,13 @@ function AdminActions(props) {
               
               <h4 className={validationMessage !== null ? "validationMessage" : ""}>{validationMessage}</h4>
               <button className="btn btn-success wd80mauto" type='submit' name='submit' >Submit</button>
-              <div onClick={() => {setHideButton(null); setValidationMessage(null);}} className="btn btn-danger backButton wd80mauto" >Back</div>
+              <div onClick={() => {ClearForms();}} className="btn btn-danger backButton wd80mauto" >Back</div>
             </form>
           </div> 
 
           <div className={hideButton === 'class' ? 'newClassForm' : 'hidden'}>
             <h2>Add a Class</h2>
-            <form method="post" onSubmit={(e) => CreateClass(e)}>
+            <form id="CreateClassForm" method="post" onSubmit={(e) => CreateClass(e)}>
               <div className="input-group newClassInput">
                 <span className="input-group-text" id="inputGroup-sizing-default">Class Name: </span>
                 <input type="text" name='classesName' className="form-control" />
@@ -320,6 +349,7 @@ function AdminActions(props) {
                   Teacher:
                 </span>
                 <select className="custom-select" name="teacher">
+                  <option value="none" >Select a Teacher</option>
                   {teachersList != null ?
                     teachersList.map(teacher => (
                       <option key={teacher.id} value={teacher.id}>{teacher.firstName} {teacher.lastName}</option>
@@ -336,9 +366,9 @@ function AdminActions(props) {
                   timeTable !== undefined ? timeTable : ""
                 }
               </div>
-              <h3 className={createClassErrorMessage != null ? "" : "hidden"}>{createClassErrorMessage}</h3>
+              <h3 className={createClassErrorMessage != null ? "redText" : "hidden"}>{createClassErrorMessage}</h3>
               <button className="btn btn-success wd80mauto mg-top-5px" type='submit' name='submit' >Submit</button>
-              <div onClick={() => {setHideButton(null); setValidationMessage(null);}} className="btn btn-danger backButton wd80mauto" >Back</div>
+              <div onClick={() => {ClearForms();}} className="btn btn-danger backButton wd80mauto" >Back</div>
             </form>
           </div> 
           
