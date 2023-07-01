@@ -48,7 +48,9 @@ export default function Absences(props){
         ApiOperations.ResolveAbsence(absenceObject).then(res => {
             console.log(res);
             if(res === "Success"){
-                window.location.reload();
+                ApiOperations.GetAbsences().then(abs => {
+                    setAbsences(abs);
+                });
             }else{
                 setAbsenceValidationMessage("Something went wrong, please try again");
             }
