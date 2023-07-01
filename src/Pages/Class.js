@@ -168,9 +168,9 @@ function SchoolClass() {
         }
         
         {takingAttendance ? 
-        <div onClick={() => setTakingAttendance(false)} className="btn btn-danger mt-10" >Back</div> 
+        <div onClick={() => setTakingAttendance(false)} className="btn btn-danger mt-10 mb-10" >Back</div> 
         : 
-        <button onClick={() => setTakingAttendance(true)} className="btn btn-success mt-10">Take Attendance</button>
+        <button onClick={() => setTakingAttendance(true)} className="btn btn-success mt-10 mb-10">Take Attendance</button>
         }        
         {
         loading ? <div className="spinner-border" role="status"></div>:
