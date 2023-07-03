@@ -64,6 +64,9 @@ a:hover {
 .redText {
   color: var(--colorRed);
 }
+.centerText {
+  text-align: center;
+}
 
 /* Change color */
 /* Change color */
@@ -810,9 +813,60 @@ a:hover {
 .TeachersClassesUserPage div {
   margin-bottom: 15px;
 }
-.pie {
-  width: 400px;
-  height: 400px;
-  background-image: conic-gradient(orange 180deg, blue 180deg 270deg, black 270deg 360deg);
+#pie {
+  width: 250px;
+  height: 250px;
+  margin: 15px auto;
+  background-image: conic-gradient(orange 360deg);
   border-radius: 50%
 }
+.AttendanceProfile {
+  width: 80%;
+  margin: 10px auto;
+}
+.AttendanceRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  outline: 1px var(--colorWhite) solid;
+  margin: 1px 5px;
+  padding: 5px;
+  height: 30px;
+}
+.AttendanceBox {
+  height: 300px;
+}
+#red {
+  height: 15px;
+  width: 45px;
+  background-color: red;
+  margin: 5px;
+}
+#blue {
+  height: 15px;
+  width: 45px;
+  background-color: blue;
+  margin: 5px;
+}
+#black {
+  height: 15px;
+  width: 45px;
+  background-color: black;
+  margin: 5px;
+}
+#Colors {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  margin: 1px auto;
+}
+.colorSample {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 25px;
+}
+

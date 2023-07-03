@@ -420,4 +420,13 @@ function CapitalizeFirstChar(word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-export { CapitalizeFirstChar, GetDateDbFormatNoTime, GetDateString, GetJWTPayload, createStep, CreatePeriodSetterTable, ConvertTimeFormatForDB, generateGuid };
+function stringifyDate(date){//2023-07-03T19:34:54 format
+    var splitDate = date.split("T");
+    splitDate = splitDate[0].split("-");
+    var year = splitDate[0];
+    var month = splitDate[1];
+    var day = splitDate[2];
+    return day + "/" + month + "/" + year;
+}
+
+export { stringifyDate, CapitalizeFirstChar, GetDateDbFormatNoTime, GetDateString, GetJWTPayload, createStep, CreatePeriodSetterTable, ConvertTimeFormatForDB, generateGuid };
