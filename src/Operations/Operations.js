@@ -416,4 +416,8 @@ function GetDateDbFormatNoTime(){
     return year + "-" + month + "-" + day + "T" + hours + ":" + minutes + ":" + seconds;
 }
 
-export { GetDateDbFormatNoTime, GetDateString, GetJWTPayload, createStep, CreatePeriodSetterTable, ConvertTimeFormatForDB, generateGuid };
+function CapitalizeFirstChar(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+export { CapitalizeFirstChar, GetDateDbFormatNoTime, GetDateString, GetJWTPayload, createStep, CreatePeriodSetterTable, ConvertTimeFormatForDB, generateGuid };

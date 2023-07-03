@@ -757,3 +757,48 @@ a:hover {
   width: 150px;
   margin: auto;
 }
+
+/*----  /\  Assign Students  /\  ----*/
+
+/*----  \/  User Page  \/  ----*/
+.StudentsProfile {
+  width: 50%;
+  margin: 15px auto;
+  background-color: var(--colorBlack);
+  border: 2px var(--colorWhite) solid;
+  border-radius: 5px;
+  color: var(--colorWhite);
+}
+#userHeader {
+  height: 120px;
+  width: 70%;
+  margin: 15px auto;
+  border-bottom: 1px var(--colorWhite) solid;
+  display: flex;
+  justify-content: space-between;
+}
+#userimg img{
+  height: 100px;
+  width: 100px;
+  border-radius: 7px;
+}
+.TeachersProfile {
+  width: 50%;
+  margin: 15px auto;
+  background-color: var(--colorBlack);
+  border: 2px var(--colorWhite) solid;
+  border-radius: 5px;
+  color: var(--colorWhite);
+}
+@media screen and (max-width: 810px) {
+  #userHeader {
+    height: 280px;
+    width: 70%;
+    margin: 15px auto;
+    border-bottom: 1px var(--colorWhite) solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
