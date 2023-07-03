@@ -13,6 +13,7 @@ function SchoolClass() {
     const [classObject, setClassObject] = useState(null);
     const [takingAttendance, setTakingAttendance] = useState(false);
     const [classPeriods, setClassPeriods] = useState([]);
+    const [attendanceValidation, setAttendanceValidation] = useState("");
 
     const urlParams = new URLSearchParams(window.location.search);
     const classId = urlParams.get('id');
@@ -78,7 +79,17 @@ function SchoolClass() {
     //Function to handle roll submission
     function AttendanceSubmit(e){
         e.preventDefault();
+        if(e.target.ClassPeriod.value === "none"){
+            setAttendanceValidation("Please select a class period");
+            return;
+        }
         var studentsAttendace = e.target.studentsAttendance;
+        for (let i = 0; i < studentsAttendace.length; i++) {
+            if(studentsAttendace[i].value === "none"){
+                setAttendanceValidation("Please select an attendance value for all students");
+                return;
+            }
+        }
         var dateValue = Operations.GetDateDbFormatNoTime();
         for (let i = 0; i < studentsAttendace.length; i++) {
             let thisAttendancevalue = studentsAttendace[i].value;
@@ -137,6 +148,7 @@ function SchoolClass() {
                     break;
             }
         }
+        window.location.reload();
     }
 
     function removeStudent(studentId, classId) {
@@ -177,15 +189,21 @@ function SchoolClass() {
             <form onSubmit={(e) => AttendanceSubmit(e)}>
             {
                 takingAttendance ? 
-                <select name="ClassPeriod" id="ClassPeriod">
-                    {
-                        classPeriods.map((period) => {
-                            return(
-                                <option key={period.id} value={period.id}>{period.dayId} {period.periodId}</option>
-                            );
-                        })    
-                    }
-                </select>
+                <div className="input-group periodDropdown">
+                    <span className="input-group-text" id="inputGroup-sizing-default">
+                    Period:
+                    </span>
+                    <select className="custom-select" name="ClassPeriod" id="ClassPeriod">
+                        <option value="none" >Select a period...</option>
+                        {
+                            classPeriods.map((period) => {
+                                return(
+                                    <option key={period.id} value={period.id}>{period.dayId} {period.periodId}</option>
+                                );
+                            })    
+                        }
+                    </select>
+                </div>
                 : 
                 null
             } 
@@ -205,6 +223,7 @@ function SchoolClass() {
                     {
                     takingAttendance ? 
                     <select className='attendaceSelectDropdown' name="studentsAttendance" id={student.studentId}>
+                        <option value="none">Select...</option>
                         <option value="present">In class</option>
                         <option value="absent">Not in class</option>
                         <option value="presentLate">Late</option>
@@ -216,7 +235,12 @@ function SchoolClass() {
             }
             </div>
             {
-            takingAttendance ? <input type='submit' className='btn btn-success rollSubmitButton' value='Submit Roll' /> : null
+            takingAttendance ? 
+            <div>
+                <h4 className='redText'>{attendanceValidation}</h4>
+                <input type='submit' className='btn btn-success rollSubmitButton' value='Submit Roll' /> 
+            </div>
+            : null
             } 
             </form>
         }

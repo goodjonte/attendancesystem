@@ -708,8 +708,8 @@ a:hover {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  padding: 5px;
+  width: 70%;
+  margin: auto;
   border-bottom: 1px var(--colorWhite) solid;
 }
 .attendaceSelectDropdown {
@@ -718,6 +718,20 @@ a:hover {
 .rollSubmitButton {
   margin: 10px;
 }
+.periodDropdown {
+  width: 26% !important;
+ margin: 10px 38% !important;
+}
+.periodDropdown select {
+  border-color: #f8f9fa;
+  border-left-color: grey;
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+  width: 70% !important;
+ }
+ .periodDropdown span {
+  width: 30% !important;
+ }
 /*----  /\  Class Page  /\  ----*/
 
 
