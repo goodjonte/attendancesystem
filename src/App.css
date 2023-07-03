@@ -802,3 +802,17 @@ a:hover {
     align-items: center;
   }
 }
+.TeachersClassesUserPage {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.TeachersClassesUserPage div {
+  margin-bottom: 15px;
+}
+.pie {
+  width: 400px;
+  height: 400px;
+  background-image: conic-gradient(orange 180deg, blue 180deg 270deg, black 270deg 360deg);
+  border-radius: 50%
+}

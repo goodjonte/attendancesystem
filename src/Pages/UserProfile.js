@@ -5,6 +5,7 @@ import * as Operations from '../Operations/Operations';
 import NavBar from '../Components/NavBar';
 import Loading from '../Components/Loading';
 import EmptyProfilePicture from '../Assets/blank-profile-picture.png';
+import TeachersClasses from '../Components/TeachersClasses';
 
 export default function UserProfile() {
     const [user, setUser] = useState(null);
@@ -53,6 +54,13 @@ export default function UserProfile() {
                                     <h2>Email:  {user.email}</h2>
                                 </div>
                             </div>
+                            {user.usersRole ===  1 ? 
+                                <div className='TeachersClassesUserPage'>
+                                    <TeachersClasses user={user.id}/>
+                                </div>
+                                :
+                                null
+                            }
                         </div>
                 </div>
             );
@@ -71,6 +79,9 @@ export default function UserProfile() {
                                 <h6>Parents Name:  {Operations.CapitalizeFirstChar(user.parentName)}</h6>
                                 <h6>Parents Number:  {user.parentPhone}</h6>
                             </div>
+                        </div>
+                        <div className='StudentPageBody'>
+                            <div className='pie'></div>
                         </div>
                     </div>
                 </div>
