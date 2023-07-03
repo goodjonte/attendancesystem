@@ -54,28 +54,6 @@ function SchoolClass() {
         })
     }, []);
 
-    // function search(searchString) {
-    //     ApiOperations.Get('User/GetStudents').then((data) => {
-    //         let filteredData = data.filter((element) => (element.firstName + " " + element.lastName).toUpperCase().includes(searchString.trim().toUpperCase()));
-    //         setResults(filteredData);
-    //     });
-    // }
-
-    //Function to handle adding student fomr - only admins have access to this
-    // function addStudent(studentId, studentFullName) {
-    //     var Enrollment = {
-    //         "enrollmentId": Operations.generateGuid(),
-    //         "studentId": studentId,
-    //         "classId": classId,
-    //         "studentName": studentFullName
-    //     }
-    //     ApiOperations.Post(Enrollment, 'Enrollments').then((response) => {
-    //         ApiOperations.GetClassesStudents(classId).then((response) => {
-    //             setEnrollments(response);
-    //         })
-    //     });
-    // }
-
     //Function to handle roll submission
     function AttendanceSubmit(e){
         e.preventDefault();
