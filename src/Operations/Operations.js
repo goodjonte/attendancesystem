@@ -533,4 +533,19 @@ function CreatePieChart(attendance) {
     }
 }
 
-export { CreatePieChart, stringifyDate, CapitalizeFirstChar, GetDateDbFormatNoTime, GetDateString, GetJWTPayload, createStep, CreatePeriodSetterTable, ConvertTimeFormatForDB, generateGuid };
+function AttendanceStatusToString(num){
+    switch(num){
+        case 0:
+            return "Present";
+        case 1:
+            return "Justified";
+        case 2:
+            return "Unjustified";
+        case 3:
+            return "Overseas Justified";
+        default:
+            return "Error";
+    }
+}
+
+export { AttendanceStatusToString, CreatePieChart, stringifyDate, CapitalizeFirstChar, GetDateDbFormatNoTime, GetDateString, GetJWTPayload, createStep, CreatePeriodSetterTable, ConvertTimeFormatForDB, generateGuid };

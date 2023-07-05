@@ -10,7 +10,6 @@ import Loading from '../Components/Loading';
 function SchoolClass() {
     const [Enrollments, setEnrollments] = useState(null);
     const [loading, setloading] = useState(true);
-    // const [results, setResults] = useState([]);
     const [classObject, setClassObject] = useState(null);
     const [takingAttendance, setTakingAttendance] = useState(false);
     const [classPeriods, setClassPeriods] = useState([]);

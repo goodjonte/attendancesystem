@@ -6,6 +6,7 @@ import NavBar from '../Components/NavBar';
 import Loading from '../Components/Loading';
 import EmptyProfilePicture from '../Assets/blank-profile-picture.png';
 import TeachersClasses from '../Components/TeachersClasses';
+import Cookies from 'universal-cookie';
 
 export default function UserProfile() {
     const [user, setUser] = useState(null);
@@ -13,8 +14,12 @@ export default function UserProfile() {
     const [attendances, setAttendances] = useState(null);
     const [schoolClasses, setSchoolClasses] = useState(null);
     const [absenceData, setAbsenceData] = useState(null);
+    const [todaysResolved, setTodaysResolved] = useState(null);
     
-
+    const cookies = new Cookies();
+    var currentToken = cookies.get('JWT_Token');
+    var tokenClaims = Operations.GetJWTPayload(currentToken);//gets jwt payload section and decrypts it and turns into json object
+    var UserRole = tokenClaims["Role"];
     
     //Get user id from url and get user data from database upon first load
     useEffect(() => {
@@ -34,6 +39,14 @@ export default function UserProfile() {
                         var pieChartData = Operations.CreatePieChart(attendancesResponse);
                         document.getElementById('pie').style.backgroundImage = pieChartData.background;
                         setAbsenceData(pieChartData);
+                        if(UserRole === "0"){
+                            ApiOperations.Get('TodaysResolveds/' + response.id).then((todaysResolvedResponse) => {
+                                console.log(todaysResolvedResponse);
+                                if(todaysResolvedResponse.status !== 404){
+                                    setTodaysResolved(todaysResolvedResponse);
+                                }
+                            });
+                        }
                     });
                     
                 });
@@ -50,6 +63,34 @@ export default function UserProfile() {
             }
         });
         return className;
+    }
+
+    function resolveForToday(e){
+        e.preventDefault();
+        if(e.target.attStatus.value === "none"){
+            alert("Please select a status");
+            return;
+        }
+
+        var resTodayObj = {
+            "id": Operations.generateGuid(),
+            "studentId": user.id,
+            "dateValid": Operations.GetDateDbFormatNoTime(),
+            "status":  parseInt(e.target.attStatus.value)
+        }
+        console.log(resTodayObj);
+        ApiOperations.Post(resTodayObj, "TodaysResolveds").then((response) => {
+            console.log(response);
+            window.location.reload();
+            
+        });
+    }
+
+    function removeTodaysResolved(id){
+        ApiOperations.Delete("TodaysResolveds/" + id).then((response) => {
+            console.log(response);
+            window.location.reload();
+        });
     }
 
     //If pages is loading, display loading message
@@ -102,6 +143,37 @@ export default function UserProfile() {
                                 <h6>Parents Number:  {user.parentPhone}</h6>
                             </div>
                         </div>
+                        {
+                            UserRole === "0" ?
+                            <div className='resolveToday'>
+                                {todaysResolved === null ? 
+                                    <form onSubmit={(e) => resolveForToday(e)}>
+                                        <h4 id="setTitle">Set attendance for the day</h4>
+                                        <div className="input-group attDropdown">
+                                            <span className="input-group-text" id="inputGroup-sizing-default">
+                                            Attendance:
+                                            </span>
+                                            <select className="custom-select" name="attStatus" id="attStatus">
+                                                <option value="none" >Select a status...</option>
+                                                <option value="0">Present</option>
+                                                <option value="1">Justified</option>
+                                                <option value="2">Unjustified</option>
+                                                <option value="3">Overseas Justified</option>
+                                            </select>
+                                        </div>
+                                    <input className='btn btn-success' type="submit" value="Submit" />
+                                    </form>
+                                    : 
+                                    <div className='trExists'>
+                                        <h6>Attendance already resolved for today</h6>
+                                        <h6>Attendance Status: {Operations.AttendanceStatusToString(todaysResolved.status)}</h6>
+                                        <button className='btn btn-danger' onClick={() => {removeTodaysResolved(todaysResolved.id)}}>Remove</button>
+                                    </div>
+                                }
+                            </div>
+                            :
+                            null
+                        }
                         <div className='StudentPageBody'>
                             <h2 className='centerText'>Students Attendance</h2>
                             
