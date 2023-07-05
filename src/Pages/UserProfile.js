@@ -147,9 +147,9 @@ export default function UserProfile() {
                                         attendances.map(attendance => {
                                             return(
                                                 <div className='AttendanceRow' key={attendance.id}>
-                                                    <p>{GetClassName(attendance.classId)}</p>
-                                                    <p>{attendance.classesPeriod} - {Operations.stringifyDate(attendance.date)}</p>
-                                                    <p>{attendance.isPresent ? "Present" : "Absent"}</p>
+                                                    <div>{GetClassName(attendance.classId)}</div>
+                                                    <div>{attendance.classesPeriod} - {Operations.stringifyDate(attendance.date)}</div>
+                                                    <div>{attendance.isPresent ? "Present" : "Absent"}</div>
                                                 </div>
                                             );
                                         })

@@ -834,7 +834,6 @@ a:hover {
 }
 .AttendanceRow {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   outline: 1px var(--colorWhite) solid;
@@ -881,9 +880,6 @@ a:hover {
   background-image: conic-gradient(orange 360deg);
   border-radius: 50%;
 }
-#Colors {
-
-}
 .colorSample {
   display: flex;
 }
@@ -899,6 +895,9 @@ a:hover {
 @media screen and (max-width: 810px) {
   .pieAndColors{
     flex-direction: column;
+  }
+  .AttendanceRow {
+    height: 50px;
   }
 }
 @media screen and (max-width: 536px) {
