@@ -52,7 +52,7 @@ export default function UserProfile() {
                 });
             }
             setLoading(false);
-        });
+        });//eslint-disable-next-line
     }, []);
 
     function GetClassName(classId){
