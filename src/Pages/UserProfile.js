@@ -12,6 +12,7 @@ export default function UserProfile() {
     const [loading, setLoading] = useState(true);
     const [attendances, setAttendances] = useState(null);
     const [schoolClasses, setSchoolClasses] = useState(null);
+    const [absenceData, setAbsenceData] = useState(null);
     
 
     
@@ -30,57 +31,9 @@ export default function UserProfile() {
                             
 
                         setAttendances(attendancesResponse);
-
-                        var absentCount = 0;
-                        var presentCount = 0;
-                        var LateCount = 0;
-                        for(var i = 0; i < attendancesResponse.length; i++){
-                            if(attendancesResponse[i].isPresent){
-                                if(attendancesResponse[i].isLate){
-                                    LateCount++;
-                                }else{
-                                    presentCount++;
-                                }
-                            }else{
-                                absentCount++;
-                            }
-                        }
-                        // background-image: conic-gradient(orange 180deg, blue 180deg 270deg, black 270deg 360deg);
-                        var absentPercent = parseInt((absentCount / attendancesResponse.length) * 100);
-                        var presentPercent = parseInt((presentCount / attendancesResponse.length) * 100);
-                        var latePercent = parseInt((LateCount / attendancesResponse.length) * 100);
-
-                        if(absentPercent + presentPercent + latePercent < 100){
-                            var diff = 100 - (absentPercent + presentPercent + latePercent);
-                            for(var g = 0; g < diff; g++){
-                                if(absentPercent > presentPercent && absentPercent > latePercent){
-                                    absentPercent++;
-                                }else if(presentPercent > absentPercent && presentPercent > latePercent){
-                                    presentPercent++;
-                                }else if(latePercent > absentPercent && latePercent > presentPercent){
-                                    latePercent++;
-                                }
-                            }
-                        }
-
-                        var absentDeg = parseInt((absentPercent / 100) * 360);
-                        var presentDeg = parseInt((presentPercent / 100) * 360);
-                        var lateDeg = parseInt((latePercent / 100) * 360);
-
-                        if(absentDeg + presentDeg + lateDeg < 360){
-                            var diff2 = 360 - (absentDeg + presentDeg + lateDeg);
-                            for(var f = 0; f < diff2; f++){
-                                if(absentDeg > presentDeg && absentDeg > lateDeg){
-                                    absentDeg++;
-                                }else if(presentDeg > absentDeg && presentDeg > lateDeg){
-                                    presentDeg++;
-                                }else if(lateDeg > absentDeg && lateDeg > presentDeg){
-                                    lateDeg++;
-                                }
-                            }
-                        }
-
-                        document.getElementById('pie').style.backgroundImage = "conic-gradient(red " + (absentDeg) + "deg, blue " + (absentDeg) + "deg " + (absentDeg+presentDeg) + "deg, black " + (absentDeg+presentDeg) + "deg "+ (absentDeg+presentDeg+lateDeg) +"deg)";
+                        var pieChartData = Operations.CreatePieChart(attendancesResponse);
+                        document.getElementById('pie').style.backgroundImage = pieChartData.background;
+                        setAbsenceData(pieChartData);
                     });
                     
                 });
@@ -153,21 +106,39 @@ export default function UserProfile() {
                             <h2 className='centerText'>Students Attendance</h2>
                             
                             <div id="ChartArea">
-                                <div id='pie'></div>
-
-                                <div id='Colors'>
-                                    <div className='colorSample'>
-                                        <div id="red"></div><span>= absent</span>
-                                    </div>
-                                    <div className='colorSample'>
-                                        <div id="blue"></div><span>= present</span> 
-                                    </div>
-                                    <div className='colorSample'>
-                                        <div id="black"></div><span>= late</span>
+                                <div className='pieAndColors'>
+                                    <div id='pie'></div>
+                                    
+                                    <div id='Colors'>
+                                        <div className='colorSample'>
+                                            <div id="red"></div>= Unjustified
+                                        </div>
+                                        <div className='colorSample'>
+                                            <div id="darkblue"></div><span>= Justified</span> 
+                                        </div>
+                                        <div className='colorSample'>
+                                            <div id="green"></div><span>= Present</span>
+                                        </div>
+                                        <div className='colorSample'>
+                                            <div id="black"></div><span>= Late</span>
+                                        </div>
+                                        <div className='colorSample'>
+                                            <div id="orange"></div><span>= Overseas</span>    
+                                        </div>
                                     </div>
                                 </div>
-                            
-                            
+
+                                {absenceData === null ? <Loading /> :
+                                <div className='AttendanceData'>
+                                    <h6>Present = {absenceData.present} - {absenceData.presentPercent}%</h6>
+                                    <h6>Late to Class = {absenceData.late} - {absenceData.latePercent}%</h6>
+                                    <h6>Unjustified Absence = {absenceData.unjustified} - {absenceData.unjustifiedPercent}%</h6>
+                                    <h6>ustified Absence = {absenceData.justified} - {absenceData.justifiedPercent}%</h6>
+                                    <h6>Overseas Justified Absence = {absenceData.overseasJustified} - {absenceData.overseasJustifiedPercent}%</h6>
+                                    <h6>Total = {absenceData.totalDays}</h6>
+                                </div>
+                                }
+
                                 <div className='AttendanceProfile'>
                                     <div className='AttendanceBox overflow-auto'>
                                     {attendances === null ?
@@ -176,7 +147,7 @@ export default function UserProfile() {
                                         attendances.map(attendance => {
                                             return(
                                                 <div className='AttendanceRow' key={attendance.id}>
-                                                    <p>Class Name: {GetClassName(attendance.classId)}</p>
+                                                    <p>{GetClassName(attendance.classId)}</p>
                                                     <p>{attendance.classesPeriod} - {Operations.stringifyDate(attendance.date)}</p>
                                                     <p>{attendance.isPresent ? "Present" : "Absent"}</p>
                                                 </div>

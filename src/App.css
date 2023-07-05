@@ -827,13 +827,7 @@ a:hover {
 .TeachersClassesUserPage div {
   margin-bottom: 15px;
 }
-#pie {
-  width: 250px;
-  height: 250px;
-  margin: 15px auto;
-  background-image: conic-gradient(orange 360deg);
-  border-radius: 50%
-}
+
 .AttendanceProfile {
   width: 80%;
   margin: 10px auto;
@@ -857,10 +851,10 @@ a:hover {
   background-color: red;
   margin: 5px;
 }
-#blue {
+#darkblue {
   height: 15px;
   width: 45px;
-  background-color: blue;
+  background-color: darkblue;
   margin: 5px;
 }
 #black {
@@ -869,18 +863,48 @@ a:hover {
   background-color: black;
   margin: 5px;
 }
+#green {
+  height: 15px;
+  width: 45px;
+  background-color: green;
+  margin: 5px;
+}
+#orange {
+  height: 15px;
+  width: 45px;
+  background-color: orange;
+  margin: 5px;
+}
+#pie {
+  width: 250px;
+  height: 250px;
+  background-image: conic-gradient(orange 360deg);
+  border-radius: 50%;
+}
 #Colors {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 60%;
-  margin: 1px auto;
+
 }
 .colorSample {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 25px;
+}
+.pieAndColors{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.AttendanceData {
+  text-align: center;
+  margin: 15px 0;
+}
+@media screen and (max-width: 810px) {
+  .pieAndColors{
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 536px) {
+  #pie {
+    width: 100px;
+    height: 100px;
+  }
 }
 

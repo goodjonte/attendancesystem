@@ -429,4 +429,108 @@ function stringifyDate(date){//2023-07-03T19:34:54 format
     return day + "/" + month + "/" + year;
 }
 
-export { stringifyDate, CapitalizeFirstChar, GetDateDbFormatNoTime, GetDateString, GetJWTPayload, createStep, CreatePeriodSetterTable, ConvertTimeFormatForDB, generateGuid };
+// Present = 0,
+// Justified = 1,
+// Unjustified = 2,
+// OverseasJustified = 3
+function CreatePieChart(attendance) {
+    var justifiedCount = 0;
+    var presentCount = 0;
+    var unjustifiedCount = 0;
+    var LateCount = 0;
+    var OverseasJustifiedCount = 0;
+
+    for(var i = 0; i < attendance.length; i++){//Get a count of each status and late bool
+        
+        switch(attendance[i].status){
+            case 0:
+                if(attendance[i].isLate){
+                    LateCount++;
+                }else{
+                    presentCount++;
+                }
+                break;
+            case 1:
+                justifiedCount++;
+                break;
+            case 2:
+                unjustifiedCount++;
+                break;
+            case 3:
+                OverseasJustifiedCount++;
+                break;
+            default:
+                break;
+        }
+    }
+    //convert each count ot a percent
+    var unjustifiedPercent = parseInt((unjustifiedCount / attendance.length) * 100);
+    var presentPercent = parseInt((presentCount / attendance.length) * 100);
+    var latePercent = parseInt((LateCount / attendance.length) * 100);
+    var justifiedPercent = parseInt((justifiedCount / attendance.length) * 100);
+    var overseasJustifiedPercent = parseInt((OverseasJustifiedCount / attendance.length) * 100);
+
+    //add 1 to the highest perecent untill total is 100%
+    if(unjustifiedPercent + presentPercent + latePercent + justifiedPercent + overseasJustifiedPercent < 100){
+        var diff = 100 - (unjustifiedPercent + presentPercent + latePercent + justifiedPercent + overseasJustifiedPercent);
+        for(var g = 0; g < diff; g++){
+            if(unjustifiedPercent > presentPercent && unjustifiedPercent > latePercent && unjustifiedPercent > justifiedPercent && unjustifiedPercent > overseasJustifiedPercent){
+                unjustifiedPercent++;
+            }else if(presentPercent > unjustifiedPercent && presentPercent > latePercent && presentPercent > justifiedPercent && presentPercent > overseasJustifiedPercent){
+                presentPercent++;
+            }else if(latePercent > unjustifiedPercent && latePercent > presentPercent && latePercent > justifiedPercent && latePercent > overseasJustifiedPercent){
+                latePercent++;
+            }else if(justifiedPercent > unjustifiedPercent && justifiedPercent > presentPercent && justifiedPercent > latePercent && justifiedPercent > overseasJustifiedPercent){
+                justifiedPercent++;
+            }else if(overseasJustifiedPercent > unjustifiedPercent && overseasJustifiedPercent > presentPercent && overseasJustifiedPercent > latePercent && overseasJustifiedPercent > justifiedPercent){
+                overseasJustifiedPercent++;
+            }
+        }
+    }
+
+    var unjustifiedDeg = parseInt((unjustifiedPercent / 100) * 360);
+    var justifiedDeg = parseInt((justifiedPercent / 100) * 360);
+    var OverseasJustifiedDeg = parseInt((overseasJustifiedPercent / 100) * 360);
+    var presentDeg = parseInt((presentPercent / 100) * 360);
+    var lateDeg = parseInt((latePercent / 100) * 360);
+
+    if((OverseasJustifiedDeg + justifiedDeg + unjustifiedDeg + presentDeg + lateDeg) < 360){
+        var diff2 = 360 - (OverseasJustifiedDeg + justifiedDeg + unjustifiedDeg + presentDeg + lateDeg);
+        for(var f = 0; f < diff2; f++){
+            if(unjustifiedDeg > justifiedDeg && unjustifiedDeg > OverseasJustifiedDeg && unjustifiedDeg > presentDeg && unjustifiedDeg > lateDeg){
+                unjustifiedDeg++;
+            }else if(justifiedDeg > unjustifiedDeg && justifiedDeg > OverseasJustifiedDeg && justifiedDeg > presentDeg && justifiedDeg > lateDeg){
+                justifiedDeg++;
+            }else if(OverseasJustifiedDeg > justifiedDeg && OverseasJustifiedDeg > unjustifiedDeg && OverseasJustifiedDeg > presentDeg && OverseasJustifiedDeg > lateDeg){
+                OverseasJustifiedDeg++;
+            }else if(presentDeg > justifiedDeg && presentDeg > unjustifiedDeg && presentDeg > OverseasJustifiedDeg && presentDeg > lateDeg){
+                presentDeg++;
+            }else if(lateDeg > justifiedDeg && lateDeg > unjustifiedDeg && lateDeg > OverseasJustifiedDeg && lateDeg > presentDeg){
+                lateDeg++;
+            }
+        }
+    }
+
+    //red = unjustified absence
+    //darkblue = justified absence
+    //orange = overseas justified absence
+    //green = present
+    //black = late to class
+    var pieCss =  "conic-gradient(red " + (unjustifiedDeg) + "deg, darkblue " + (unjustifiedDeg) + "deg " + (unjustifiedDeg+justifiedDeg) + "deg, orange " + (unjustifiedDeg+justifiedDeg) + "deg "+ ((unjustifiedDeg+justifiedDeg)+OverseasJustifiedDeg) +"deg, green " + ((unjustifiedDeg+justifiedDeg)+OverseasJustifiedDeg) + "deg "+ (((unjustifiedDeg+justifiedDeg)+OverseasJustifiedDeg)+presentDeg) +"deg, black " + (((unjustifiedDeg+justifiedDeg)+OverseasJustifiedDeg)+presentDeg) + "deg "+ ((((unjustifiedDeg+justifiedDeg)+OverseasJustifiedDeg)+presentDeg)+lateDeg) +"deg)";
+    return {
+        "background": pieCss,
+        "totalDays": attendance.length,
+        "present": presentCount,
+        "unjustified": unjustifiedCount,
+        "justified": justifiedCount,
+        "overseasJustified": OverseasJustifiedCount,
+        "late": LateCount,
+        "presentPercent": presentPercent,
+        "unjustifiedPercent": unjustifiedPercent,
+        "justifiedPercent": justifiedPercent,
+        "overseasJustifiedPercent": overseasJustifiedPercent,
+        "latePercent": latePercent
+    }
+}
+
+export { CreatePieChart, stringifyDate, CapitalizeFirstChar, GetDateDbFormatNoTime, GetDateString, GetJWTPayload, createStep, CreatePeriodSetterTable, ConvertTimeFormatForDB, generateGuid };
