@@ -5,6 +5,7 @@ import * as Operations from '../Operations/Operations';
 import Cookies from 'universal-cookie';
 import NavBar from '../Components/NavBar';
 import AssignStudents from '../Components/AssignStudents';
+import Loading from '../Components/Loading';
 
 function SchoolClass() {
     const [Enrollments, setEnrollments] = useState(null);
@@ -157,14 +158,15 @@ function SchoolClass() {
         null
         }
         
-        {takingAttendance ? 
+        
+        {
+        loading ? <Loading />:
+            <form onSubmit={(e) => AttendanceSubmit(e)}>
+                {takingAttendance ? 
         <div onClick={() => setTakingAttendance(false)} className="btn btn-danger mt-10 mb-10" >Back</div> 
         : 
         <button onClick={() => setTakingAttendance(true)} className="btn btn-success mt-10 mb-10">Take Attendance</button>
-        }        
-        {
-        loading ? <div className="spinner-border" role="status"></div>:
-            <form onSubmit={(e) => AttendanceSubmit(e)}>
+        } 
             {
                 takingAttendance ? 
                 <div className="input-group periodDropdown">
