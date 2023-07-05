@@ -43,8 +43,8 @@ function TeachersClasses(props) {
             {
           schoolClasses == null || schoolClasses === [] ? "No Classes Today" : schoolClasses.map(schoolClass => {
           return (
-            <div className='Class' key={schoolClass.id}>
-                <h2 onClick={() => openClass(schoolClass.id, schoolClass.className)}>{schoolClass.className}</h2>
+            <div onClick={() => openClass(schoolClass.id, schoolClass.className)} className='Class' key={schoolClass.id}>
+                <h2 >{schoolClass.className}</h2>
             </div>
           )})
           }
