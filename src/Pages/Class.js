@@ -62,21 +62,81 @@ function SchoolClass() {
             return;
         }
         var studentsAttendace = e.target.studentsAttendance;
-        for (let i = 0; i < studentsAttendace.length; i++) {
-            if(studentsAttendace[i].value === "none"){
+        var attendanceObject;
+        var dateValue = Operations.GetDateDbFormatNoTime();
+        if(studentsAttendace.value === ""){  //"""" means there are multiple students
+            for (let i = 0; i < studentsAttendace.length; i++) {
+                if(studentsAttendace[i].value === "none"){
+                    setAttendanceValidation("Please select an attendance value for all students");
+                    return;
+                }
+            }
+            for (let i = 0; i < studentsAttendace.length; i++) {
+                let thisAttendancevalue = studentsAttendace[i].value;
+                switch (thisAttendancevalue) {
+                    case "present":
+                        attendanceObject = {
+                            "id": Operations.generateGuid(),
+                            "studentId": studentsAttendace[i].id,
+                            "classId": classId,
+                            "classesPeriodId": e.target.ClassPeriod.value,
+                            "isPresent": true,
+                            "isLate": false,
+                            "date": dateValue,
+                            "status": 0,
+                            "unjustifiedResolved": true,
+                        }
+                        ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
+                            console.log(response);
+                        });
+                        break;
+                    case "absent":
+                        let absentId = Operations.generateGuid();
+                        attendanceObject = {
+                            "id": absentId,
+                            "studentId": studentsAttendace[i].id,
+                            "classId": classId,
+                            "classesPeriodId": e.target.ClassPeriod.value,
+                            "isPresent": false,
+                            "isLate": false,
+                            "date": dateValue,
+                            "status": 2,
+                            "unjustifiedResolved": false,
+                        }
+                        ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
+                            console.log(response);
+                        });
+                        break;
+                    case "presentLate":
+                        attendanceObject = {
+                            "id": Operations.generateGuid(),
+                            "studentId": studentsAttendace[i].id,
+                            "classId": classId,
+                            "classesPeriodId": e.target.ClassPeriod.value,
+                            "isPresent": true,
+                            "isLate": true,
+                            "date": dateValue,
+                            "status": 0,
+                            "unjustifiedResolved": true,
+                        }
+                        ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
+                            console.log(response);
+                        });
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }else{
+            if(studentsAttendace.value === "none"){
                 setAttendanceValidation("Please select an attendance value for all students");
                 return;
             }
-        }
-        var dateValue = Operations.GetDateDbFormatNoTime();
-        for (let i = 0; i < studentsAttendace.length; i++) {
-            let thisAttendancevalue = studentsAttendace[i].value;
-            let attendanceObject;
-            switch (thisAttendancevalue) {
+            switch (studentsAttendace.value) {
                 case "present":
                     attendanceObject = {
                         "id": Operations.generateGuid(),
-                        "studentId": studentsAttendace[i].id,
+                        "studentId": studentsAttendace.id,
                         "classId": classId,
                         "classesPeriodId": e.target.ClassPeriod.value,
                         "isPresent": true,
@@ -93,7 +153,7 @@ function SchoolClass() {
                     let absentId = Operations.generateGuid();
                     attendanceObject = {
                         "id": absentId,
-                        "studentId": studentsAttendace[i].id,
+                        "studentId": studentsAttendace.id,
                         "classId": classId,
                         "classesPeriodId": e.target.ClassPeriod.value,
                         "isPresent": false,
@@ -109,7 +169,7 @@ function SchoolClass() {
                 case "presentLate":
                     attendanceObject = {
                         "id": Operations.generateGuid(),
-                        "studentId": studentsAttendace[i].id,
+                        "studentId": studentsAttendace.id,
                         "classId": classId,
                         "classesPeriodId": e.target.ClassPeriod.value,
                         "isPresent": true,
@@ -126,6 +186,7 @@ function SchoolClass() {
                     break;
             }
         }
+       
         window.location.reload();
     }
 
