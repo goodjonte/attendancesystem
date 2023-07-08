@@ -327,7 +327,7 @@ function AdminActions(props) {
               </div>
               <div className="input-group newUserInput">
                 <span className="input-group-text" id="inputGroup-sizing-default">Password: </span>
-                <input type="text" name='password' className="form-control" />
+                <input type="password" name='password' className="form-control" />
               </div>
               
               <h4 className={validationMessage !== null ? "validationMessage" : ""}>{validationMessage}</h4>
