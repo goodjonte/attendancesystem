@@ -81,14 +81,14 @@ function createStep(sameBool, stepNumber) {
         case 3:
             if(sameBool) {
                 return(
-                    <div>
-                        <label>Number of periods including breaks:</label>
-                        <input type="number" id="everydayNumOfPeriods" name="everydayNumOfPeriods" />
+                    <div className="input-group mb-3 numOfPeriodsSingular">
+                        <span className="input-group-text" id="inputGroup-sizing-default ">Number of Periods Incl Breaks</span>
+                        <input type="number" id="everydayNumOfPeriods" name="everydayNumOfPeriods" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
                     </div>
                 )
             }else {
                 return (
-                    <table>
+                    <table id='step3NotSameTable'>
                         <thead>
                             <tr>
                             <th scope="col"></th>

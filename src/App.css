@@ -67,6 +67,10 @@ a:hover {
 .centerText {
   text-align: center;
 }
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}
 
 /* Change color */
 /* Change color */
@@ -217,6 +221,10 @@ a:hover {
   color: var(--colorRed);
   text-decoration: underline;
   cursor: pointer;
+}
+.setupTitle {
+  width: 100%;
+  text-align: center;
 }
 /*----  /\  NavBar  /\  ----*/
 
@@ -945,3 +953,91 @@ a:hover {
   text-align: center;
   margin: 10px;
  }
+/*---- /\  User Page  /\  ----*/
+
+/*----  \/  Setup Page  \/  ----*/
+.setupPanel {
+  background-color: var(--colorBlack);
+  border: 2px var(--colorWhite) solid;
+  border-radius: 5px;
+  color: var(--colorWhite);
+  width: 80%;
+  margin: 50px auto;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.setupForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.setupIG div span{
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+/*----  /\  Setup Page  /\  ----*/
+
+/*---- \/ School Week Creator \/ ----*/
+.formStep1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80px;
+  justify-content: space-around;
+}
+.formStep1 div label {
+  margin-right: 10px;
+}
+.formStep2 div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.formStep2 div label{
+  font-weight: 600;
+}
+.formStep2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.formStep3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.numOfPeriodsSingular {
+  width: 50%;
+}
+.numOfPeriodsSingular span {
+  border-right: black 1px solid;
+}
+.formStep4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.formStep4 table thead tr th {
+  text-align: center;
+}
+#step3NotSameTable tbody tr td input {
+  width: 100px;
+  
+}
+#step3NotSameTable thead tr th {
+  text-align: center;
+  
+}
+.formStep5 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.adminCreationForm form{
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

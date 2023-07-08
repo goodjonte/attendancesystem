@@ -31,22 +31,30 @@ function AdminCreationForm() {
     };
     
     return (
-      <div className="NoticeBoard">
+      <div className="adminCreationForm">
         <form method='post' onSubmit={FormSubmit}>
 
-            <label for='firstName'>FirstName:</label>
-            <input type='text' id='firstName' name='firstName' placeholder='First Name' required/>
+          <div className="input-group mb-3">
+            <span className="input-group-text" id="inputGroup-sizing-default">FirstName:</span>
+            <input type='text' id='firstName' name='firstName' placeholder='First Name' className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+          </div>
 
-            <label for='lastName'>LastName:</label>
-            <input type='text' id='lastName' name='lastName' placeholder='Last Name' required/>
+          <div className="input-group mb-3">
+            <span className="input-group-text" id="inputGroup-sizing-default">LastName:</span>
+            <input type='text' id='lastName' name='lastName' placeholder='Last Name' className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+          </div>
 
-            <label for='email'>Email:</label>
-            <input type='text' id='email' name='email' placeholder='user123@email.com' required/>
+          <div className="input-group mb-3">
+            <span className="input-group-text" id="inputGroup-sizing-default">Email:</span>
+            <input type='text' id='email' name='email' placeholder='user123@email.com' className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+          </div>
 
-            <label for='password'>Password:</label>
-            <input type='password' id='password' name='password' placeholder='Password' required/>
+          <div className="input-group mb-3">
+            <span className="input-group-text" id="inputGroup-sizing-default">Password:</span>
+            <input type='password' id='password' name='password' placeholder='Password' className="form-control" autoComplete="password-new" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+          </div>
 
-            <button type='submit' className='btn btn-outline-dark'>Submit</button>
+          <button type='submit' className='btn btn-success'>Submit</button>
 
         </form>
       </div>

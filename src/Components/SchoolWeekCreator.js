@@ -24,6 +24,7 @@ function SchoolWeekCreator() {
             case 1:
                 setStep2(Operations.createStep(everyDaySameBool, 2));//Create Step 2 based off of checkbox from step 1
                 setFormStep(2);
+                setStepError(null);
             break;
             case 2:
                 if(everyDaySameBool){
@@ -64,7 +65,7 @@ function SchoolWeekCreator() {
                 }
                 setStep3(Operations.createStep(everyDaySameBool, 3));
                 setFormStep(3);
-                console.log("no errors");
+                setStepError(null);
             break;
             case 3:
             var periodArray = [];
@@ -100,9 +101,11 @@ function SchoolWeekCreator() {
                 }
                 setStep4(Operations.CreatePeriodSetterTable(periodArray, everyDaySameBool));
                 setFormStep(4);
+                setStepError(null);
             break;
             case 4:
                 setFormStep(5);
+                setStepError(null);
             break;
         default:
             break;
@@ -115,8 +118,6 @@ function SchoolWeekCreator() {
         var sameEveryday = document.getElementById('everyDaySameBool').checked;
         if(sameEveryday){
             let periodsIdArray = [];
-            // let everydayStart = document.getElementById('everydayStart').value;
-            // let everydayEnd = document.getElementById('everydayEnd').value;
             let everydayNumOfPeriods = document.getElementById('everydayNumOfPeriods').value;
             let breakCount = 0;
 
@@ -248,68 +249,38 @@ function SchoolWeekCreator() {
         <div className="weekForm">
             <form method='POST' onSubmit={e => {e.preventDefault();} }>
                 <div className={formStep !== 1 ? 'hidden' : 'formStep1'}>
-                    <label>Is every day the same schedule?</label>
-                    <input type='checkbox' id='everyDaySameBool' name='everyDaySameBool' value='false' ></input>
-                    <span className='spanButton' onClick={() => NextStep(1)} >Next</span>
+                    <div className='flexRow'>
+                        <label>Is every day the same schedule?</label>
+                        <input type='checkbox' id='everyDaySameBool' name='everyDaySameBool' value='false' ></input>
+                    </div>
+                    <span className='spanButton btn btn-success' onClick={() => NextStep(1)} >Next</span>
                 </div>
                 <div className={formStep !== 2 ? 'hidden' : 'formStep2'}>
                     <h3>Set the days start and end times</h3>
                     {
                       step2  
                     }
-                    <h4>{stepError !== null ? stepError : ""}</h4>
-                    <span className='spanButton' onClick={() => NextStep(2)} >Next</span>
+                    <h5 className='redText mt-10 mb-10'>{stepError !== null ? stepError : ""}</h5>
+                    <span className='spanButton btn btn-success' onClick={() => NextStep(2)} >Next</span>
                 </div>
                 <div className={formStep !== 3 ? 'hidden' : 'formStep3'}>
                     <h3>Set the number of periods including breaks as periods</h3>
                     {
                       step3  
                     }
-                    <h4>{stepError !== null ? stepError : ""}</h4>
-                    <span className='spanButton' onClick={() => NextStep(3)} >Next</span>
+                    <h5 className='redText mt-10 mb-10' >{stepError !== null ? stepError : ""}</h5>
+                    <span className='spanButton btn btn-success' onClick={() => NextStep(3)} >Next</span>
                 </div>
                 <div className={formStep !== 4 ? 'hidden' : 'formStep4'}>
                     <h3>Set period times and specify if period is actually a break</h3>
                     {
                       step4  
                     }
-                    <h4>{stepError !== null ? stepError : ""}</h4>
-                    <button id="finalButton"  onClick={() => formSubmit()}  >Submit</button>
+                    <h5 className='redText mt-10 mb-10' >{stepError !== null ? stepError : ""}</h5>
+                    <button id="finalButton" className='btn btn-success'  onClick={() => formSubmit()}  >Submit</button>
                 </div>
                 
                 
-
-                <table className="hidden">
-                    <thead>
-                        <tr>
-                        <th scope="col">Monday</th>
-                        <th scope="col">Tuesday</th>
-                        <th scope="col">Wednesday</th>
-                        <th scope="col">Thursday</th>
-                        <th scope="col">Friday</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        </tr>
-                    </tbody>
-                </table>
             </form>
             <div className={formStep !== 5 ? 'hidden' : 'formStep5'}>
                     <h1>Successfully Created the schools timetable</h1>

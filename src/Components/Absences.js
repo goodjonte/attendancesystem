@@ -13,7 +13,6 @@ export default function Absences(props){
     //UseEffect to get absences from database upon first render, then sets loading to false
     useEffect(() => {
         ApiOperations.GetAbsences().then(abs => {
-            console.log(abs);
             setAbsences(abs);
             setLoading(false);
         });

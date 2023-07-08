@@ -14,36 +14,36 @@ export default function NavBar(props) {
         const [schoolName, setSchoolName] = useState("");
         const [usersName, setUsersName] = useState("User");
         const [role, setRole] = useState("Role");
-
         //UseEffect to get school name from database upon first render for nav title
         //Also gets users information if user is logged in
         //User info is used to decide what to show in nav, also used to display name and role within nav
         useEffect(() => {
-            if(props.userLoggedIn){
-                const cookies = new Cookies();
-                var currentToken = cookies.get('JWT_Token');
-                let tokenClaims = Operations.GetJWTPayload(currentToken);
-                var UserId = tokenClaims["user"];
+            if(props.InSetup !== true){
+              if(props.userLoggedIn){
+                  const cookies = new Cookies();
+                  var currentToken = cookies.get('JWT_Token');
+                  let tokenClaims = Operations.GetJWTPayload(currentToken);
+                  var UserId = tokenClaims["user"];
 
-                ApiOperations.Get('User/GetUser?id=' + UserId).then((response) => {
-                    console.log(response);
-                    setUsersName(response.firstName + " " + response.lastName);
-                    switch (response.usersRole) {
-                        case 0:
-                            setRole("Adminastrator");
-                            break;
-                        case 1:
-                            setRole("Teacher");
-                            break;
-                        default:
-                            setRole("Student"); 
-                            break;
-                    }
-                });
+                  ApiOperations.Get('User/GetUser?id=' + UserId).then((response) => {
+                      setUsersName(response.firstName + " " + response.lastName);
+                      switch (response.usersRole) {
+                          case 0:
+                              setRole("Adminastrator");
+                              break;
+                          case 1:
+                              setRole("Teacher");
+                              break;
+                          default:
+                              setRole("Student"); 
+                              break;
+                      }
+                  });
+              }
+              ApiOperations.Get('Schools').then((response) => {
+                  setSchoolName(response[0].schoolName);
+              });
             }
-            ApiOperations.Get('Schools').then((response) => {
-                setSchoolName(response[0].schoolName);
-            });
           //eslint-disable-next-line
         }, []);
 
@@ -53,7 +53,16 @@ export default function NavBar(props) {
             cookies.remove('JWT_Token');
             window.location.href = '/';
         }
-    
+        
+        if(props.InSetup === true){
+          return (
+          <Navbar className="bg-body-tertiary navbarCont">
+          
+            <Navbar.Brand className="setupTitle" href="/">School Attendance System</Navbar.Brand>
+          
+          </Navbar>
+          );
+        }
         return (
         <Navbar key={false} expand={false} className="bg-body-tertiary navbarCont">
           <Container fluid>
