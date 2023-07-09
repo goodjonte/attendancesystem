@@ -5,7 +5,6 @@ import AdminActions from '../Components/AdminActions';
 import AdminCreationForm from '../Components/AdminCreationForm';
 import AssignStudents from '../Components/AssignStudents';
 import NoticeBoard from '../Components/NoticeBoard';
-import TeachersClasses from '../Components/TeachersClasses';
 
 describe('Test Components', () => {
     it('Absences', () => {
