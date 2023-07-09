@@ -43,7 +43,7 @@ function NoticeBoard(props) {
                 month = month < 10 ? '0' + month : month;
                 day = date.getDate();
                 day = day < 10 ? '0' + day : day;
-                DateString = date.getFullYear() + '-' + month + '-' + day + 'T' + date.getHours() + ':' + date.getMinutes() + ':00';
+                DateString = date.getFullYear() + '-' + month + '-' + day + 'T08:08:00';
                 break;
             case "tommorow":
                 date.setDate(date.getDate() + 1);
@@ -51,7 +51,7 @@ function NoticeBoard(props) {
                 month = month < 10 ? '0' + month : month;
                 day = date.getDate();
                 day = day < 10 ? '0' + day : day;
-                DateString = date.getFullYear() + '-' + month  + '-' + day  + 'T' + date.getHours() + ':' + date.getMinutes() + ':00';
+                DateString = date.getFullYear() + '-' + month  + '-' + day  + 'T08:08:00';
                 break;
             default:
                 console.log("Something went wrong");
