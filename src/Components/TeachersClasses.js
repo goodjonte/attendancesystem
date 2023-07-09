@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import * as Operations from '../Operations/Operations';
 import * as ApiOperations from '../Operations/ApiOperations';
 import Cookies from 'universal-cookie';
+import Loading from './Loading';
 
 function TeachersClasses(props) {
     const [schoolClasses, setSchoolClasses] = useState(null);
@@ -37,7 +38,7 @@ function TeachersClasses(props) {
         <h1>Classes</h1>
         {
           loading ?
-          <div class="spinner-border" role="status"></div>
+          <Loading />
           :
           <div className='classList'>
             {
