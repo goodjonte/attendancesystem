@@ -548,4 +548,4 @@ function AttendanceStatusToString(num){
     }
 }
 
-export { AttendanceStatusToString, CreatePieChart, stringifyDate, CapitalizeFirstChar, GetDateDbFormatNoTime, GetDateString, GetJWTPayload, createStep, CreatePeriodSetterTable, ConvertTimeFormatForDB, generateGuid };
+export { getMaxPeriodsInADay, AttendanceStatusToString, CreatePieChart, stringifyDate, CapitalizeFirstChar, GetDateDbFormatNoTime, GetDateString, GetJWTPayload, createStep, CreatePeriodSetterTable, ConvertTimeFormatForDB, generateGuid };

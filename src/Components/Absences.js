@@ -60,7 +60,7 @@ export default function Absences(props){
       <div className={displayAsPage ? "AbsenceMain" :"Absence"}>
         <div className="AbsencesHeader">
             <h1>Absences</h1>
-            <div><a href={PDF} target="_blank" rel="noreferrer">View Attendace Code</a></div>
+            <div><a href={PDF} target="_blank" rel="noreferrer">View Attendance Code</a></div>
         </div>
         <div className='AbsencesBox'>
         {loading ? 
