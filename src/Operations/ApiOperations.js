@@ -1,4 +1,4 @@
-const apiURL = "https://localhost:7184/api/";
+const apiURL = "https://attendancesystemapi.azure-api.net/api/";
 
 async function DatabaseTest() {
     //fetch to test if db has data        
