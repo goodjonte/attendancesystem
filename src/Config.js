@@ -1,5 +1,5 @@
 export default class Config {
     static getApiUrl() {
-        return "https://localhost:7184/api/";
+        return "https://attendancesystemapi.azure-api.net/api/";
     }
 }
