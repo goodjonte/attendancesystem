@@ -187,7 +187,7 @@ function SchoolClass() {
             }
         }
        
-        window.location.reload();
+        // window.location.reload();
     }
 
     function removeStudent(studentId, classId) {
