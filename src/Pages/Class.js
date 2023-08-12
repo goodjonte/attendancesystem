@@ -55,7 +55,7 @@ function SchoolClass() {
     }, []);
 
     //Function to handle roll submission
-    function AttendanceSubmit(e){
+    async function AttendanceSubmit(e){
         e.preventDefault();
         if(e.target.ClassPeriod.value === "none"){
             setAttendanceValidation("Please select a class period");
@@ -86,7 +86,7 @@ function SchoolClass() {
                             "status": 0,
                             "unjustifiedResolved": true,
                         }
-                        ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
+                        await ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
                             console.log(response);
                         });
                         break;
@@ -103,7 +103,7 @@ function SchoolClass() {
                             "status": 2,
                             "unjustifiedResolved": false,
                         }
-                        ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
+                        await ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
                             console.log(response);
                         });
                         break;
@@ -119,7 +119,7 @@ function SchoolClass() {
                             "status": 0,
                             "unjustifiedResolved": true,
                         }
-                        ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
+                        await ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
                             console.log(response);
                         });
                         break;
@@ -145,7 +145,7 @@ function SchoolClass() {
                         "status": 0,
                         "unjustifiedResolved": true,
                     }
-                    ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
+                    await ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
                         console.log(response);
                     });
                     break;
@@ -162,7 +162,7 @@ function SchoolClass() {
                         "status": 2,
                         "unjustifiedResolved": false,
                     }
-                    ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
+                    await ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
                         console.log(response);
                     });
                     break;
@@ -178,7 +178,7 @@ function SchoolClass() {
                         "status": 0,
                         "unjustifiedResolved": true,
                     }
-                    ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
+                    await ApiOperations.Post(attendanceObject, 'Attendances').then((response) => {
                         console.log(response);
                     });
                     break;
@@ -187,7 +187,7 @@ function SchoolClass() {
             }
         }
        
-        // window.location.reload();
+        window.location.reload();
     }
 
     function removeStudent(studentId, classId) {
